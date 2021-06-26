@@ -1,0 +1,40 @@
+name: Deploy ASP.NET Core app to SmarterASp Web App
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  WEBAPP_PACKAGE_PATH: "."
+  DOTNET_VERSION: "3.1" # set this to the dot net version to use
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repo
+      - uses: actions/checkout@master
+
+      # Setup .NET Core SDK
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      # Run dotnet build and publish
+      - name: dotnet build and publish
+        run: |
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish -c Release -o '${{ env.WEBAPP_PACKAGE_PATH }}/backend'
+
+      - name: 📂 Sync files
+        uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
+        with:
+          ftp_host: "ftp.site4now.net"
+          ftp_username: "xettasoft-001"
+          ftp_password: ${{ secrets.SmarterAspFtp }}
+          local_source_dir: "./backend/"
+          dist_target_dir: "/site1/"
+          delete: "true"
