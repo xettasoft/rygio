@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Command\v1\" />
     <Folder Include="Mapper\" />
     <Folder Include="Query\v1\" />
   </ItemGroup>
