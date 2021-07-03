@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using rygio.DataAccess;
+using rygio.DataAccess.Repository;
+using rygio.Domain.Interface;
 using rygio.Helper;
 using Swashbuckle.AspNetCore.Filters;
 
@@ -47,6 +49,7 @@ namespace rygio
                 config.ReportApiVersions = true;
             });
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.UseNetTopologySuite()));
+            services.AddSignalR();
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -94,6 +97,9 @@ namespace rygio
             });
 
             services.AddSwaggerExamplesFromAssemblyOf<Startup>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -133,6 +139,10 @@ namespace rygio
             {
                 endpoints.MapControllers();
             });
+/*            app.UseSignalR(route =>
+            {
+                route.MapHub<InformHub>("/inform");
+            });*/
         }
     }
 }

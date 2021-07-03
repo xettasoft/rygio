@@ -18,8 +18,11 @@ namespace rygio.Domain.AppData
         [Column(TypeName = "geometry")]
         public IPoint Location { get; set; }
         public Geometry Border { get; set; }
+        //[Column(TypeName = "bigint")]
         public int? ExperienceId { get; set; }
+        //[Column(TypeName = "bigint")]
         public int? RegionId { get; set; }
+        //[Column(TypeName = "bigint")]
         public int? PostId { get; set; }
 
     }

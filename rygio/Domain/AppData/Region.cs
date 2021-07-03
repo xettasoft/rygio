@@ -17,6 +17,12 @@ namespace rygio.Domain.AppData
         public bool IsPrivate { get; set; } = false;
         public bool IsLocked { get; set; } = false;
         public bool CanMemberPost { get; set; } = true;
+        //[Column(TypeName = "bigint")]
         public int? BankAccountId { get; set; }
+        [Column(TypeName = "nvarchar(255)")]
+        public string ConnectionId { get; set; }
+        public virtual IEnumerable<Collectable> Collectables { get; set; }
+        public virtual IEnumerable<Post> Posts { get; set; }
+        public virtual IEnumerable<RegionMember> RegionMembers { get; set; }
     }
 }

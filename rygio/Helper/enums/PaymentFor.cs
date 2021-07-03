@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace rygio.Helper.enums
 {
-    public enum CollectableState
+    public enum PaymentFor
     {
-        IsClaimed = 500,
-        Dropped = 501,
-        Picked = 502,
-        owned = 503,
-
+        Collectible = 400,
+        Experience = 401
     }
 }

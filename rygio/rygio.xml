@@ -4,5 +4,465 @@
         <name>rygio</name>
     </assembly>
     <members>
+        <member name="M:rygio.Controllers.v1.CollectibleController.create">
+            <summary>
+            Create a collectible template
+            </summary>
+            <remarks>
+            <h3>Type is an Enum with the following value</h3>
+            <ul>
+            <li>1 : BUYING</li>
+            <li>2 : DELIVERY</li>
+            <li>3 : BOTH</li>
+            </ul>
+            <h3>Status is an Enum with the following value</h3>
+            <ul>
+            <li>1 : Deactivated</li>
+            <li>2 : Activated</li>
+            <li>3 : Pending</li>
+            <li>4 : Suspended</li> 
+            </ul>
+            <h3>DocumentReviewStatus is an Enum with the following value</h3>
+            <ul>
+            <li>1 : Denied</li>
+            <li>2 : Accepted</li>
+            <li>3 : Processing</li>
+            </ul>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.CollectibleController.mint">
+            <summary>
+            Mint a collectible
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.CollectibleController.transfer">
+            <summary>
+            transfer a collectible
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.CollectibleController.getSingle">
+            <summary>
+            get a single collectible
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.CollectibleController.getAll">
+            <summary>
+            get all user collectibles
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.CollectibleController.trails">
+            <summary>
+            get all collectible trails
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.CollectibleController.edit">
+            <summary>
+            edit Collectible template
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.CollectibleController.delete">
+            <summary>
+            delete a collectible template
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.create">
+            <summary>
+            Create an Experience
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.drop">
+            <summary>
+            drop an Experience
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.pick">
+            <summary>
+            pick an Experience
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.purchase">
+            <summary>
+            buy an Experience
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.getSingle">
+            <summary>
+            get a single Experience
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.getAll">
+            <summary>
+            get all user Experiences
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.member">
+            <summary>
+            add a member
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.deleteMember">
+            <summary>
+            delete a member
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.ExperienceController.delete">
+            <summary>
+            delete an Experience
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.InstanceController.fetch">
+            <summary>
+            Fetch current location collectibles
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.InstanceController.store">
+            <summary>
+            get all collectibles in store
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.create">
+            <summary>
+            make a post (location based or regional)
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.delete">
+            <summary>
+            delete a post
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.comment">
+            <summary>
+            make a comment
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.reply">
+            <summary>
+            reply a comment
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.like">
+            <summary>
+            like a post,comment or reply
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.getSingle">
+            <summary>
+            get a single collectible
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.getAll">
+            <summary>
+            get all user collectibles
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.member">
+            <summary>
+            add a member
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.PostController.deleteMember">
+            <summary>
+            delete a member
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.create">
+            <summary>
+            Create a region
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.member">
+            <summary>
+            add a member
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.deleteMember">
+            <summary>
+            delete a member
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.edit">
+            <summary>
+            edit a region
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.getSingle">
+            <summary>
+            get a single Region
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.getAll">
+            <summary>
+            get all user Region
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.thumbsup">
+            <summary>
+            region thumbsup
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.thumbsdown">
+            <summary>
+            region thumbsdown
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.RegionController.delete">
+            <summary>
+            delete a region
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.signin">
+            <summary>
+            Signin with username(Email or Phone) and password
+            </summary>
+            <remarks>
+            <h3>Type is an Enum with the following value</h3>
+            <ul>
+            <li>1 : BUYING</li>
+            <li>2 : DELIVERY</li>
+            <li>3 : BOTH</li>
+            </ul>
+            <h3>Status is an Enum with the following value</h3>
+            <ul>
+            <li>1 : Deactivated</li>
+            <li>2 : Activated</li>
+            <li>3 : Pending</li>
+            <li>4 : Suspended</li> 
+            </ul>
+            <h3>DocumentReviewStatus is an Enum with the following value</h3>
+            <ul>
+            <li>1 : Denied</li>
+            <li>2 : Accepted</li>
+            <li>3 : Processing</li>
+            </ul>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.signup">
+            <summary>
+            register a new account with email and phone number
+            </summary>
+            <remarks>
+            <h3>Type is an Enum with the following value</h3>
+            <ul>
+            <li>1 : BUYING</li>
+            <li>2 : DELIVERY</li>
+            <li>3 : BOTH</li>
+            </ul>
+            <h3>Status is an Enum with the following value</h3>
+            <ul>
+            <li>1 : Deactivated</li>
+            <li>2 : Activated</li>
+            <li>3 : Pending</li>
+            <li>4 : Suspended</li> 
+            </ul>
+            <h3>DocumentReviewStatus is an Enum with the following value</h3>
+            <ul>
+            <li>1 : Denied</li>
+            <li>2 : Accepted</li>
+            <li>3 : Processing</li>
+            </ul>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.externalSignin">
+            <summary>
+            Signin with google, facebook or twitter
+            </summary>
+            <remarks>
+            <h3>Type is an Enum with the following value</h3>
+            <ul>
+            <li>1 : BUYING</li>
+            <li>2 : DELIVERY</li>
+            <li>3 : BOTH</li>
+            </ul>
+            <h3>Status is an Enum with the following value</h3>
+            <ul>
+            <li>1 : Deactivated</li>
+            <li>2 : Activated</li>
+            <li>3 : Pending</li>
+            <li>4 : Suspended</li> 
+            </ul>
+            <h3>DocumentReviewStatus is an Enum with the following value</h3>
+            <ul>
+            <li>1 : Denied</li>
+            <li>2 : Accepted</li>
+            <li>3 : Processing</li>
+            </ul>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.externalSignup">
+            <summary>
+            Signup with google, facebook or twitter
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.photo">
+            <summary>
+            upload photo
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.reset">
+            <summary>
+            reset password
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.change">
+            <summary>
+            change password
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.history">
+            <summary>
+            financial history
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.edit">
+            <summary>
+            edit user
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.single">
+            <summary>
+            logged-in user
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:rygio.Controllers.v1.UserController.allUsers">
+            <summary>
+            all user users
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
     </members>
 </doc>

@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
-    public class Comment : BaseEntity
+    public class ExperienceStageCollectible
     {
-        [Column(TypeName = "nvarchar(255)")]
-        public string Message { get; set; }
         //[Column(TypeName = "bigint")]
-        public int? UserId { get; set; }
+        public int? CollectableId { get; set; }
         //[Column(TypeName = "bigint")]
-        public int? PostId { get; set; }
-        public virtual IEnumerable<Reply> Replies { get; set; }
+        public int? ExperienceStageId { get; set; }
+        public bool IsPicked { get; set; } = false;
     }
 }

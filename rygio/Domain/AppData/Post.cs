@@ -11,8 +11,12 @@ namespace rygio.Domain.AppData
 
         [Column(TypeName = "nvarchar(255)")]
         public string Message { get; set; }
+        //[Column(TypeName = "bigint")]
         public int? UserId { get; set; }
+       // [Column(TypeName = "bigint")]
+        public int? RegionId { get; set; }
         [Column(TypeName = "nvarchar(max)")]
-        public string Url { get; set; }
+        public string MediaUrl { get; set; }
+        public virtual IEnumerable<Comment> Comments { get; set; }
     }
 }

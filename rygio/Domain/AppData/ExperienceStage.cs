@@ -8,12 +8,15 @@ namespace rygio.Domain.AppData
 {
     public class ExperienceStage : BaseEntity
     {
+        //[Column(TypeName = "bigint")]
         public int? ExperienceId { get; set; }
-        public int? CollectableId { get; set; }
         public int Stage { get; set; } = 1;
-        public bool IsExperienced { get; set; } = false;
         [Column(TypeName = "nvarchar(500)")]
         public string Puzzle { get; set; }
+        public bool IsMultiplePickAllowed { get; set; } = false;
+        //[Column(TypeName = "bigint")]
         public int? CoordinateId { get; set; }
+        public DateTime VisibleBy { get; set; } = DateTime.UtcNow;
+        public virtual IEnumerable<ExperienceStageCollectible> Collectibles { get; set; }
     }
 }
