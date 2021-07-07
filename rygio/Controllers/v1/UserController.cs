@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using rygio.Command;
+using rygio.Command.v1;
 
 namespace rygio.Controllers.v1
 {
@@ -17,9 +20,11 @@ namespace rygio.Controllers.v1
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
+        private readonly IMediator mediator;
 
-        public UserController(ILogger<UserController> logger)
+        public UserController(ILogger<UserController> logger, IMediator mediator)
         {
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _logger = logger;
         }
 
@@ -114,7 +119,7 @@ namespace rygio.Controllers.v1
         }
 
         /// <summary>
-        /// Signin with google, facebook or twitter
+        /// Signin with google
         /// </summary>
         /// <remarks>
         /// <h3>Type is an Enum with the following value</h3>
@@ -140,15 +145,68 @@ namespace rygio.Controllers.v1
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
-        [Route("external_signin")]
-        public async Task<IActionResult> externalSignin()
+        [Route("google_signin")]
+        public async Task<IActionResult> googleSignin([FromBody] ExternalAuthDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
 
 
-                return Ok();
+                GoogleAuthenticationCommand request = new GoogleAuthenticationCommand
+                {
+                    googleAuthDto = dto
+                };
+                var result = await mediator.Send(request);
+                return Ok(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Signin with facebook
+        /// </summary>
+        /// <remarks>
+        /// <h3>Type is an Enum with the following value</h3>
+        /// <ul>
+        /// <li>1 : BUYING</li>
+        /// <li>2 : DELIVERY</li>
+        /// <li>3 : BOTH</li>
+        /// </ul>
+        /// <h3>Status is an Enum with the following value</h3>
+        /// <ul>
+        /// <li>1 : Deactivated</li>
+        /// <li>2 : Activated</li>
+        /// <li>3 : Pending</li>
+        /// <li>4 : Suspended</li> 
+        /// </ul>
+        /// <h3>DocumentReviewStatus is an Enum with the following value</h3>
+        /// <ul>
+        /// <li>1 : Denied</li>
+        /// <li>2 : Accepted</li>
+        /// <li>3 : Processing</li>
+        /// </ul>
+        /// </remarks>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("facebook_signin")]
+        public async Task<IActionResult> facebookSignin([FromBody] ExternalAuthDto dto)
+        {
+            try
+            {
+
+
+                FacebookAuthCommand request = new FacebookAuthCommand
+                {
+                    facebookAuthDto = dto
+                };
+                var result = await mediator.Send(request);
+                return Ok(result);
 
             }
             catch (Exception ex)

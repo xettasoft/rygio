@@ -2,12 +2,13 @@
 using rygio.Domain.AppData;
 using rygio.Domain.Interface;
 using rygio.Helper;
-using rygio.Helper.pagination;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Google.Apis.Auth.OAuth2.Requests;
+using Google.Apis.PeopleService.v1;
+using Google.Apis.Services;
+using System.Collections.Generic;
+using Google.Apis.Auth.OAuth2;
 
 namespace rygio.DataAccess.Repository
 {
@@ -37,12 +38,30 @@ namespace rygio.DataAccess.Repository
             throw new NotImplementedException();
         }
 
-        public Task<User> ExternalAuthentication(string accessToken, int type)
+        public Task<User> FacebookAuthentication(string accessToken)
         {
+             var authUser = ExternalProviders.GetFacebookAccountDetails(_appSettings.FacebookAuthUrl,accessToken);
             throw new NotImplementedException();
         }
 
-        public Task<bool> ExternalRegister(string accessToken, int type)
+        public async Task<User> GoogleAuthentication(string accessToken)
+        {
+            GoogleCredential cred = GoogleCredential.FromAccessToken(accessToken);
+            var peopleService = new PeopleServiceService(new BaseClientService.Initializer { HttpClientInitializer = cred, ApplicationName = "Rygio" });
+            var peopleRequest = peopleService.People.Get("people/me");
+            peopleRequest.RequestMaskIncludeField = new List<string> { "person.names", "person.EmailAddresses", "person.Photos","person.PhoneNumbers" };
+            var profile =  peopleRequest.Execute();
+            if (profile != null)
+                return new User {
+                Name = profile?.Names[0]?.DisplayName,
+                Email = profile?.EmailAddresses[0]?.Value,
+                //Phone = profile?.PhoneNumbers[0]?.CanonicalForm,
+                Photo = profile?.Photos[0]?.Url
+            };
+            throw new NullReferenceException();
+        }
+
+        public Task<bool> GoogleRegister(string accessToken, string sGooAuth)
         {
             throw new NotImplementedException();
         }
@@ -71,5 +90,8 @@ namespace rygio.DataAccess.Repository
         {
             throw new NotImplementedException();
         }
+
+
+
     }
 }

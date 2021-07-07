@@ -18,5 +18,7 @@ namespace rygio.Helper
         public string SmsSender { get; set; }
         public string TwilionAcctSID { get; set; }
         public string TwilionAuthKey { get; set; }
+        public string GoogleAuthUrl { get; set; }
+        public string FacebookAuthUrl { get; set; }
     }
 }
