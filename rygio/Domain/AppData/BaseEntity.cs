@@ -15,7 +15,6 @@ namespace rygio.Domain.AppData
         public int? LastModifiedBy { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DeletedDate { get; set; }
-        [Column(TypeName = "nvarchar(128)")]
-        public string Reference { get; set; }
+
     }
 }

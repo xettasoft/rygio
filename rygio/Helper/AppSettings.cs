@@ -20,5 +20,7 @@ namespace rygio.Helper
         public string TwilionAuthKey { get; set; }
         public string GoogleAuthUrl { get; set; }
         public string FacebookAuthUrl { get; set; }
+        public int AccessTokenExpiration { get; set; }
+        public int RefreshTokenExpiration { get; set; }
     }
 }

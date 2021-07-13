@@ -9,27 +9,30 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace rygio.Command
+namespace rygio.Command.v1
 {
-    public class GoogleAuthenticationCommand : IRequest<User>
+    public class GoogleRegisterCommand : IRequest<string>
     {
         public ExternalAuthDto googleAuthDto { get; set; }
 
-        public class GoogleAuthenticationCommandHandler : IRequestHandler<GoogleAuthenticationCommand, User>
+        public class GoogleRegisterCommandHandler : IRequestHandler<GoogleRegisterCommand, string>
         {
-            private readonly IUserRepository userRepository;
+            private readonly IUserService userRepository;
             private readonly IMapper mapper;
 
-            public GoogleAuthenticationCommandHandler(IUserRepository userRepository, IMapper mapper)
+            public GoogleRegisterCommandHandler(IUserService userRepository, IMapper mapper)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             }
 
-            public async Task<User> Handle(GoogleAuthenticationCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(GoogleRegisterCommand request, CancellationToken cancellationToken)
             {
 
-                return await userRepository.GoogleAuthentication(request.googleAuthDto.AccessToken);
+
+                await userRepository.GoogleRegister(request.googleAuthDto.AccessToken);
+
+                return "User created successfully";
 
             }
 

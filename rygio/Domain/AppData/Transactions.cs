@@ -9,6 +9,7 @@ namespace rygio.Domain.AppData
 {
     public class Transaction : BaseEntity
     {
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Amount { get; set; }
         public TransactionStatus Status { get; set; }
         public PaymentFor PaymentFor { get; set; }

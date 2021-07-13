@@ -9,6 +9,8 @@ namespace rygio.Domain.AppData
     public class User : BaseEntity
     {
         [Column(TypeName = "nvarchar(128)")]
+        public string FacebookId { get; set; }
+        [Column(TypeName = "nvarchar(128)")]
         public string Name { get; set; }
         [Column(TypeName = "nvarchar(128)")]
         public string Username { get; set; }
@@ -40,6 +42,7 @@ namespace rygio.Domain.AppData
         public string MobileDeviceToken { get; set; }
         [Column(TypeName = "nvarchar(255)")]
         public string WebDeviceToken { get; set; }
+        public bool IsActive { get; set; }
         public virtual IEnumerable<Experience> Experiences { get; set; }
         public virtual IEnumerable<ExperienceMember> ExperienceMembers { get; set; }
         public virtual IEnumerable<Collectable> Collectables { get; set; }
@@ -49,6 +52,8 @@ namespace rygio.Domain.AppData
         public virtual IEnumerable<Reply> Replies { get; set; }
         public virtual IEnumerable<BankAccount> BankAccounts { get; set; }
         public virtual IEnumerable<DebitCard> DebitCards { get; set; }
+        public virtual IEnumerable<RefreshToken> RefreshTokens { get; set; }
+
 
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
-    public class PostMember
+    public class PostMember : BaseEntity
     {
         //[Column(TypeName = "bigint")]
         public int? PostId { get; set; }

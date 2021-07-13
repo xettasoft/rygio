@@ -1,4 +1,4 @@
-﻿using GeoAPI.Geometries;
+﻿
 using NetTopologySuite.Geometries;
 using rygio.Helper.enums;
 using System;
@@ -16,7 +16,7 @@ namespace rygio.Domain.AppData
         public bool IsAction { get; set; } = true;
         public bool IsSearchable { get; set; } = true;
         [Column(TypeName = "geometry")]
-        public IPoint Location { get; set; }
+        public Point Location { get; set; }
         public Geometry Border { get; set; }
         //[Column(TypeName = "bigint")]
         public int? ExperienceId { get; set; }

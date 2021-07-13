@@ -1,4 +1,5 @@
-﻿using GeoAPI.Geometries;
+﻿
+using NetTopologySuite.Geometries;
 using rygio.Helper.enums;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace rygio.Domain.AppData
         public string ClaimingCode { get; set; }
         [Column(TypeName = "nvarchar(500)")]
         public string TermsAndConditions { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Value { get; set; }
         //[Column(TypeName = "bigint")]
         public int? UserId { get; set; }
@@ -34,7 +36,9 @@ namespace rygio.Domain.AppData
         //[Column(TypeName = "bigint")]
         public int? TransactionId { get; set; }
         [Column(TypeName = "geometry")]
-        public IPoint MintedAt { get; set; }
+        public Point MintedAt { get; set; }
+        [Column(TypeName = "nvarchar(128)")]
+        public string Reference { get; set; }
         public virtual IEnumerable<CollectableTrail> CollectableTrails { get; set; }
     }
 }

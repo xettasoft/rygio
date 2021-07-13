@@ -22,17 +22,39 @@ namespace rygio.DataAccess
         public DbSet<ExperienceStageCollectible> ExperienceStageCollectibles { get; set; }
         public DbSet<Payout> Payouts { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<PostMember> postMembers { get; set; }
+        public DbSet<PostMember> PostMembers { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<RegionMember> RegionMembers { get; set; }
         public DbSet<Reply> Replies { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         { }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(b => b.Email)
+                .IsUnique();
+            modelBuilder.Entity<User>()
+                .HasIndex(b => b.Username)
+                .IsUnique();
+            modelBuilder.Entity<Collectable>()
+                .HasIndex(b => b.Reference)
+                .IsUnique();
+            modelBuilder.Entity<Experience>()
+                .HasIndex(b => b.Reference)
+                .IsUnique();
+            modelBuilder.Entity<Post>()
+                .HasIndex(b => b.Reference)
+                .IsUnique();
+            modelBuilder.Entity<Region>()
+                .HasIndex(b => b.Reference)
+                .IsUnique();
+        }
 
     }
 }

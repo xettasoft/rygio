@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
-    public class ExperienceStageCollectible
+    public class ExperienceStageCollectible:BaseEntity
     {
         //[Column(TypeName = "bigint")]
         public int? CollectableId { get; set; }

@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using rygio.Command;
 using rygio.Command.v1;
+using rygio.Command.v1.Dtos.Request;
+using rygio.Helper;
+using static rygio.Command.v1.RevokeTokenCommand;
 
 namespace rygio.Controllers.v1
 {
@@ -32,44 +35,31 @@ namespace rygio.Controllers.v1
         /// Signin with username(Email or Phone) and password
         /// </summary>
         /// <remarks>
-        /// <h3>Type is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : BUYING</li>
-        /// <li>2 : DELIVERY</li>
-        /// <li>3 : BOTH</li>
-        /// </ul>
-        /// <h3>Status is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Deactivated</li>
-        /// <li>2 : Activated</li>
-        /// <li>3 : Pending</li>
-        /// <li>4 : Suspended</li> 
-        /// </ul>
-        /// <h3>DocumentReviewStatus is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Denied</li>
-        /// <li>2 : Accepted</li>
-        /// <li>3 : Processing</li>
-        /// </ul>
         /// </remarks>
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [Route("signin")]
-        public async Task<IActionResult> signin()
+        public async Task<IActionResult> signin([FromBody] AuthDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                LoginCommand request = new LoginCommand { authDto = dto };
+                var result = await mediator.Send(request);
 
-               
-                    return Ok();
 
+                return Ok(new { data = result });
+
+            }
+            catch (AppException ex)
+            {
+
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
             }
             catch (Exception ex)
             {
 
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
             }
         }
 
@@ -77,44 +67,31 @@ namespace rygio.Controllers.v1
         /// register a new account with email and phone number
         /// </summary>
         /// <remarks>
-        /// <h3>Type is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : BUYING</li>
-        /// <li>2 : DELIVERY</li>
-        /// <li>3 : BOTH</li>
-        /// </ul>
-        /// <h3>Status is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Deactivated</li>
-        /// <li>2 : Activated</li>
-        /// <li>3 : Pending</li>
-        /// <li>4 : Suspended</li> 
-        /// </ul>
-        /// <h3>DocumentReviewStatus is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Denied</li>
-        /// <li>2 : Accepted</li>
-        /// <li>3 : Processing</li>
-        /// </ul>
         /// </remarks>
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
         [Route("signup")]
-        public async Task<IActionResult> signup()
+        public async Task<IActionResult> signup([FromBody] UserRegisterationDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                RegisterCommand request = new RegisterCommand { registerDto=dto};
+                var result = await mediator.Send(request);
 
+                
+                    return Ok(new { message = result, IsSuccess = true });
+               
+            }
+            catch (AppException ex)
+            {
 
-                return Ok();
-
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
             }
             catch (Exception ex)
             {
 
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
             }
         }
 
@@ -122,25 +99,6 @@ namespace rygio.Controllers.v1
         /// Signin with google
         /// </summary>
         /// <remarks>
-        /// <h3>Type is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : BUYING</li>
-        /// <li>2 : DELIVERY</li>
-        /// <li>3 : BOTH</li>
-        /// </ul>
-        /// <h3>Status is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Deactivated</li>
-        /// <li>2 : Activated</li>
-        /// <li>3 : Pending</li>
-        /// <li>4 : Suspended</li> 
-        /// </ul>
-        /// <h3>DocumentReviewStatus is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Denied</li>
-        /// <li>2 : Accepted</li>
-        /// <li>3 : Processing</li>
-        /// </ul>
         /// </remarks>
         /// <returns></returns>
         [AllowAnonymous]
@@ -168,28 +126,37 @@ namespace rygio.Controllers.v1
         }
 
         /// <summary>
+        /// Signup with google
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("google_signup")]
+        public async Task<IActionResult> googleSignup([FromBody] ExternalAuthDto dto)
+        {
+            try
+            {
+                GoogleRegisterCommand request = new GoogleRegisterCommand
+                {
+                    googleAuthDto = dto
+                };
+                var result = await mediator.Send(request);
+                return Ok(new { message = result });
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
         /// Signin with facebook
         /// </summary>
         /// <remarks>
-        /// <h3>Type is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : BUYING</li>
-        /// <li>2 : DELIVERY</li>
-        /// <li>3 : BOTH</li>
-        /// </ul>
-        /// <h3>Status is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Deactivated</li>
-        /// <li>2 : Activated</li>
-        /// <li>3 : Pending</li>
-        /// <li>4 : Suspended</li> 
-        /// </ul>
-        /// <h3>DocumentReviewStatus is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Denied</li>
-        /// <li>2 : Accepted</li>
-        /// <li>3 : Processing</li>
-        /// </ul>
         /// </remarks>
         /// <returns></returns>
         [AllowAnonymous]
@@ -206,7 +173,7 @@ namespace rygio.Controllers.v1
                     facebookAuthDto = dto
                 };
                 var result = await mediator.Send(request);
-                return Ok(result);
+                return Ok(new { data= result });
 
             }
             catch (Exception ex)
@@ -217,22 +184,24 @@ namespace rygio.Controllers.v1
         }
 
         /// <summary>
-        /// Signup with google, facebook or twitter
+        /// Signup with facebook
         /// </summary>
         /// <remarks>
         /// </remarks>
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost]
-        [Route("external_signup")]
-        public async Task<IActionResult> externalSignup()
+        [Route("facebook_signup")]
+        public async Task<IActionResult> facebookSignup([FromBody] ExternalAuthDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
-
-
-                return Ok();
+                FacebookRegisterCommand request = new FacebookRegisterCommand
+                {
+                    facebookAuthDto = dto
+                };
+                var result = await mediator.Send(request);
+                return Ok(new { message = result });
 
             }
             catch (Exception ex)
@@ -318,6 +287,66 @@ namespace rygio.Controllers.v1
         }
 
         /// <summary>
+        /// refresh access token
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("refresh_token")]
+        public async Task<IActionResult> refreshToken([FromBody] RefreshTokenDto token)
+        {
+            try
+            {
+                RefreshTokenCommand request = new RefreshTokenCommand { token = token.RefreshToken };
+                var result = await mediator.Send(request);
+                return Ok(new { data = result });
+
+            }
+            catch (AppException ex)
+            {
+
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
+            }
+        }
+
+        /// <summary>
+        /// revoke token
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("revoke_refresh_token")]
+        public async Task<IActionResult> revokeRefreshToken([FromBody] RefreshTokenDto token)
+        {
+            try
+            {
+                RevokeTokenCommand request = new RevokeTokenCommand { token = token.RefreshToken };
+                var result = await mediator.Send(request);
+                return Ok(new { message = result });
+
+            }
+            catch (AppException ex)
+            {
+
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
+            }
+        }
+
+        /// <summary>
         /// financial history
         /// </summary>
         /// <remarks>
@@ -372,7 +401,8 @@ namespace rygio.Controllers.v1
         /// <remarks>
         /// </remarks>
         /// <returns></returns>
-        [HttpGet("id")]
+        [HttpGet]
+        [Route("logged_in_user")]
         public async Task<IActionResult> single()
         {
             try

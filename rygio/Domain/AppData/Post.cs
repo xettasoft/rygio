@@ -17,6 +17,8 @@ namespace rygio.Domain.AppData
         public int? RegionId { get; set; }
         [Column(TypeName = "nvarchar(max)")]
         public string MediaUrl { get; set; }
+        [Column(TypeName = "nvarchar(128)")]
+        public string Reference { get; set; }
         public virtual IEnumerable<Comment> Comments { get; set; }
     }
 }

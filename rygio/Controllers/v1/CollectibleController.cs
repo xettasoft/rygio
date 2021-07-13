@@ -27,25 +27,6 @@ namespace rygio.Controllers.v1
         /// Create a collectible template
         /// </summary>
         /// <remarks>
-        /// <h3>Type is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : BUYING</li>
-        /// <li>2 : DELIVERY</li>
-        /// <li>3 : BOTH</li>
-        /// </ul>
-        /// <h3>Status is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Deactivated</li>
-        /// <li>2 : Activated</li>
-        /// <li>3 : Pending</li>
-        /// <li>4 : Suspended</li> 
-        /// </ul>
-        /// <h3>DocumentReviewStatus is an Enum with the following value</h3>
-        /// <ul>
-        /// <li>1 : Denied</li>
-        /// <li>2 : Accepted</li>
-        /// <li>3 : Processing</li>
-        /// </ul>
         /// </remarks>
         /// <returns></returns>
         [HttpPost]

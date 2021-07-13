@@ -23,10 +23,15 @@ namespace rygio.Domain.AppData
         public bool IsPrivate { get; set; } = false;
         public DateTime StartBy { get; set; } = DateTime.UtcNow;
         public bool IsFree { get; set; } = false;
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Amount { get; set; }
         public int TargetMembers { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
         public decimal TotalAmount { get; set; }
+        [Column(TypeName = "decimal(18,4)")]
         public decimal EstimatedValue { get; set; }
+        [Column(TypeName = "nvarchar(128)")]
+        public string Reference { get; set; }
         public virtual IEnumerable<ExperienceStage> Stages { get; set; }
         public virtual IEnumerable<ExperienceMember> ExperienceMembers { get; set; }
 

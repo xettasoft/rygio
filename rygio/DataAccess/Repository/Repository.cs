@@ -1,4 +1,6 @@
-﻿using rygio.Domain.Interface;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using rygio.Domain.Interface;
 using rygio.Helper.pagination;
 using System;
 using System.Collections.Generic;
@@ -16,104 +18,193 @@ namespace rygio.DataAccess.Repository
         {
             _context = context;
         }
-        public Task<T> Add(T entity)
+ 
+
+        public virtual async Task<T> Add(T entity)
         {
-            throw new NotImplementedException();
+            //EntityEntry dbEntityEntry = _context.Entry<T>(entity);
+            await _context.Set<T>().AddAsync(entity);
+            return entity;
         }
 
         public void Add(List<T> entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().AddRange(entity);
+
         }
 
-        public Task<IEnumerable<T>> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        public virtual async Task<IEnumerable<T>> AllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            return await FindAllIncluding(includeProperties).ToListAsync();
         }
 
-        public Task CommitAsync()
+        public virtual IQueryable<T> FindAllIncluding(params Expression<Func<T, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _context.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            return (IQueryable<T>)query.AsEnumerable();
         }
 
-        public Task<int> Count()
+        public virtual async Task CommitAsync()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
         }
 
-        public Task<int> CountWhere(Expression<Func<T, bool>> predicate)
+        public virtual void UndoAdd(T entity)
         {
-            throw new NotImplementedException();
+            EntityEntry dbEntityEntry = _context.Entry<T>(entity);
+            dbEntityEntry.State = EntityState.Deleted;
+            //await _context.Remove();
         }
 
-        public void Delete(T entity)
+        public virtual void UndoAdd(List<T> entity)
         {
-            throw new NotImplementedException();
+
+            foreach (var item in entity)
+            {
+                EntityEntry dbEntityEntry = _context.Entry<T>(item);
+                dbEntityEntry.State = EntityState.Deleted;
+            }
+
         }
 
-        public void DeleteWhere(Expression<Func<T, bool>> predicate)
+        public virtual async Task<int> Count()
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().CountAsync();
         }
 
-        public Task<IEnumerable<T>> FindAllInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public virtual async Task<int> CountWhere(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().Where(predicate).CountAsync();
         }
 
-        public Task<IEnumerable<T>> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual void Delete(T entity)
         {
-            throw new NotImplementedException();
+            EntityEntry dbEntityEntry = _context.Entry<T>(entity);
+            dbEntityEntry.State = EntityState.Deleted;
         }
 
-        public T FindFirst(Expression<Func<T, bool>> predicate)
+        public virtual void DeleteWhere(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            IEnumerable<T> entities = _context.Set<T>().Where(predicate);
+
+            foreach (var entity in entities)
+            {
+                _context.Entry<T>(entity).State = EntityState.Deleted;
+            }
         }
 
-        public Task<T> FindSingleInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public virtual async Task<IEnumerable<T>> FindBy(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return await FindAllWhere(predicate).ToListAsync();
         }
 
-        public PageList<T> GetAll(PageParameter pagination)
+        public virtual IQueryable<T> FindAllWhere(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return (IQueryable<T>)_context.Set<T>().Where(predicate);
         }
 
-        public PageList<T> GetAll(Expression<Func<T, bool>> predicate, PageParameter pagination)
+        public virtual T GetLastAsync(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            //return await FindLast(predicate).SingleAsync();
+            return _context.Set<T>().Where(predicate).AsEnumerable().LastOrDefault();
+            //return await FindLast(predicate).LastOrDefaultAsync();
         }
 
-        public T GetLastAsync(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<T> FindLast(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return (IQueryable<T>)_context.Set<T>().Where(predicate).AsEnumerable().LastOrDefault();
+            //return (IQueryable<T>)_context.Set<T>().Where(predicate).AsAsyncEnumerable();
+            //return await _context.Set<T>().Where(predicate).LastOrDefaultAsync();
         }
 
-        public Task<T> GetSingle(Expression<Func<T, bool>> predicate)
+        public virtual PageList<T> GetAll(PageParameter pageParameter)
         {
-            throw new NotImplementedException();
+            return PageList<T>.ToPagedList(FindAll(), pageParameter.PageNumber, pageParameter.PageSize);
         }
 
-        public T GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public virtual PageList<T> GetAll(Expression<Func<T, bool>> predicate, PageParameter pageParameter)
         {
-            throw new NotImplementedException();
+            return PageList<T>.ToPagedList(_context.Set<T>().Where(predicate), pageParameter.PageNumber, pageParameter.PageSize);
         }
 
-        public void UndoAdd(T entity)
+        public virtual IQueryable<T> FindAll()
         {
-            throw new NotImplementedException();
+            return (IQueryable<T>)_context.Set<T>().AsEnumerable();
         }
 
-        public void UndoAdd(List<T> entity)
+        public virtual Task<T> GetSingle(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().FirstOrDefaultAsync(predicate);
         }
 
-        public void Update(T entity)
+        public virtual T GetSingle(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _context.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return query.Where(predicate).FirstOrDefault();
+        }
+
+        public virtual async Task<IEnumerable<T>> FindAllInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        {
+
+            return await GetAllInclude(predicate, includeProperties).ToListAsync();
+        }
+
+        public virtual IQueryable<T> GetAllInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return (IQueryable<T>)query.Where(predicate);
+        }
+
+        public virtual async Task<T> FindSingleInclude(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        {
+
+            IQueryable<T> query = _context.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.Where(predicate).FirstOrDefaultAsync();
+            //return await GetAllInclude(predicate, includeProperties).AnyAsync();
+        }
+
+        public virtual async Task<T> GetSingleIncludeAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.Where(predicate).FirstAsync();
+        }
+
+        public virtual void Update(T entity)
+        {
+
+            EntityEntry dbEntityEntry = _context.Entry<T>(entity);
+            dbEntityEntry.State = EntityState.Modified;
+            dbEntityEntry.State = EntityState.Detached;
+
+        }
+
+        public virtual T FindFirst(Expression<Func<T, bool>> predicate)
+        {
+            return _context.Set<T>().FirstOrDefault(predicate);
         }
     }
 }
