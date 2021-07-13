@@ -58,6 +58,7 @@ namespace rygio.Controllers.v1
         /// <remarks>
         /// </remarks>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         [Route("drop")]
         public async Task<IActionResult> drop()
