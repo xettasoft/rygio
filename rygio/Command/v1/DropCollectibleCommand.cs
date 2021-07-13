@@ -34,8 +34,9 @@ namespace rygio.Command.v1
             {
 
 
-                await _notificationHub.Clients.Group("").NotifyClient(new PicknDropNotificationDto { Message = "Noting to show" });
-               // var newtoken = await userRepository.RefreshToken(request.token);
+                //await _notificationHub.Clients.Group("").NotifyClient(new PicknDropNotificationDto { Message = "Noting to show" });
+                await _notificationHub.Clients.All.NotifyClient(new PicknDropNotificationDto { Message = "Noting to show or is there something" });
+                // var newtoken = await userRepository.RefreshToken(request.token);
 
                 return true;
 
