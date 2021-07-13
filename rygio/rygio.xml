@@ -148,6 +148,14 @@
             </remarks>
             <returns></returns>
         </member>
+        <member name="M:rygio.Controllers.v1.InstanceController.picknDropNotifier">
+            <summary>
+            pick or drop notification
+            </summary>
+            <remarks>
+            </remarks>
+            <returns></returns>
+        </member>
         <member name="M:rygio.Controllers.v1.InstanceController.store">
             <summary>
             get all collectibles in store

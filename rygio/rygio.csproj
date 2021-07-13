@@ -13,7 +13,8 @@
   <ItemGroup>
     <Folder Include="Attributes\" />
     <Folder Include="Middleware\" />
-    <Folder Include="Query\v1\" />
+    <Folder Include="Query\v1\Dtos\Request\" />
+    <Folder Include="Query\v1\Dtos\Respond\" />
   </ItemGroup>
 
   <ItemGroup>

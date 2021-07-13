@@ -23,6 +23,7 @@ using rygio.DataAccess.Repository;
 using rygio.Domain.AppData;
 using rygio.Domain.Interface;
 using rygio.Helper;
+using rygio.Hubs.V1;
 
 using Swashbuckle.AspNetCore.Filters;
 
@@ -189,12 +190,16 @@ namespace rygio
             //app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<NotificationHub>("/notify");
                 endpoints.MapControllers();
+                
             });
-/*            app.UseSignalR(route =>
-            {
-                route.MapHub<InformHub>("/inform");
-            });*/
+            
+
+            /*            app.UseSignalR(route =>
+                        {
+                            route.MapHub<InformHub>("/inform");
+                        });*/
         }
     }
 }

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using rygio.Command.v1;
+using rygio.Helper;
 
 namespace rygio.Controllers.v1
 {
@@ -17,10 +20,11 @@ namespace rygio.Controllers.v1
     public class ExperienceController : ControllerBase
     {
         private readonly ILogger<ExperienceController> _logger;
-
-        public ExperienceController(ILogger<ExperienceController> logger)
+        private readonly IMediator mediator;
+        public ExperienceController(ILogger<ExperienceController> logger, IMediator mediator)
         {
             _logger = logger;
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         /// <summary>
@@ -60,16 +64,22 @@ namespace rygio.Controllers.v1
         {
             try
             {
-                //var result = await mediator.Send(request);
+                DropCollectibleCommand request = new DropCollectibleCommand { token="" };
+                var result = await mediator.Send(request);
 
 
-                return Ok();
+                return Ok(new { message = result, IsSuccess = true });
 
+            }
+            catch (AppException ex)
+            {
+
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
             }
             catch (Exception ex)
             {
 
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new { message = ex.Message, IsSuccess = false });
             }
         }
 

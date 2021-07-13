@@ -30,7 +30,7 @@ namespace rygio.Controllers.v1
         /// </remarks>
         /// <returns></returns>
         [HttpGet]
-        [Route("fetch")]
+        [Route("new")]
         public async Task<IActionResult> fetch()
         {
             try
@@ -47,6 +47,33 @@ namespace rygio.Controllers.v1
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        /// <summary>
+        /// pick or drop notification
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("pick_drop_notification")]
+        public async Task<IActionResult> picknDropNotifier()
+        {
+            try
+            {
+                //var result = await mediator.Send(request);
+
+
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+
 
         /// <summary>
         /// get all collectibles in store
