@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
@@ -17,6 +15,6 @@ namespace rygio.Domain.AppData
         //[Column(TypeName = "bigint")]
         public int? CoordinateId { get; set; }
         public DateTime VisibleBy { get; set; } = DateTime.UtcNow;
-        public virtual IEnumerable<ExperienceStageCollectible> Collectibles { get; set; }
+        public IEnumerable<ExperienceStageCollectible> Collectibles { get; set; }
     }
 }

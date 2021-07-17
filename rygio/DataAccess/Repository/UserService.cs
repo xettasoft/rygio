@@ -9,12 +9,13 @@ using Google.Apis.PeopleService.v1;
 using Google.Apis.Services;
 using System.Collections.Generic;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.EntityFrameworkCore;
 using rygio.Command.v1.Dtos.Response;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace rygio.DataAccess.Repository
 {
@@ -34,7 +35,7 @@ namespace rygio.DataAccess.Repository
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 throw new AppException("Username or password is incorrect.");
 
-            var user = await _context.Users.Include(rt => rt.RefreshTokens).SingleOrDefaultAsync(x => x.Email == username || x.Phone == username || x.Username == username);
+            var user = await _context.Users.Include(x => x.RefreshTokens.Where(x => x.Revoked == null)).SingleOrDefaultAsync(x => x.Email == username || x.Phone == username || x.Username == username);
 
             // check if user exists
             if (user == null)
@@ -99,7 +100,7 @@ namespace rygio.DataAccess.Repository
         public async Task<User> FacebookAuthentication(string accessToken)
         {
              var authUser = ExternalProviders.GetFacebookAccountDetails(_appSettings.FacebookAuthUrl,accessToken);
-            var user = await _context.Users.Include(rt => rt.RefreshTokens).SingleOrDefaultAsync(x => x.Email == authUser.Email || x.FacebookId == authUser.Id);
+            var user = await _context.Users.Include(x => x.RefreshTokens.Where(x => x.Revoked == null)).SingleOrDefaultAsync(x => x.Email == authUser.Email || x.FacebookId == authUser.Id);
             if (authUser.Email != null && user != null) {
                 user.EmailConfirmedDate = DateTime.Now;
                 user.IsEmailConfirmed = true;
@@ -117,7 +118,7 @@ namespace rygio.DataAccess.Repository
             peopleRequest.RequestMaskIncludeField = new List<string> { "person.names", "person.EmailAddresses", "person.Photos","person.PhoneNumbers" };
             var profile =  peopleRequest.Execute();
             if (profile == null) throw new AppException("Error fetching user details from google.");
-            var user = await _context.Users.Include(rt => rt.RefreshTokens).SingleOrDefaultAsync(x => x.Email == profile.EmailAddresses[0].Value);
+            var user = await _context.Users.Include(x => x.RefreshTokens.Where(x => x.Revoked == null)).SingleOrDefaultAsync(x => x.Email == profile.EmailAddresses[0].Value);
             if (!string.IsNullOrEmpty(profile?.EmailAddresses[0]?.Value))
             {
                 user.EmailConfirmedDate = DateTime.Now;
@@ -277,7 +278,7 @@ namespace rygio.DataAccess.Repository
 
             if(authUser == null ) throw new AppException("Error Fetching user details from facebook");
 
-            var user = await _context.Users.Include(rt => rt.RefreshTokens).SingleOrDefaultAsync(x => x.Email == authUser.Email || x.FacebookId == authUser.Id);
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == authUser.Email || x.FacebookId == authUser.Id);
 
             if (user != null) throw new AppException("User already eisting. Please login to access account.");
 
@@ -324,7 +325,7 @@ namespace rygio.DataAccess.Repository
 
             if (profile == null) throw new AppException("Error Fetching user details from google");
 
-            var user = await _context.Users.Include(rt => rt.RefreshTokens).SingleOrDefaultAsync(x => x.Email == profile.EmailAddresses[0].Value);
+            var user = await _context.Users.SingleOrDefaultAsync(x => x.Email == profile.EmailAddresses[0].Value);
 
             if (user != null) throw new AppException("User already eisting. Please login to access account.");
 

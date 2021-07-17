@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace rygio.Command.v1
+namespace rygio.Hubs.V1.Dtos
 {
-    public class ExternalAuthDto
+    public class CollectibleActionDto
     {
-        public string AccessToken { get; set; }
     }
 }

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using rygio.Query.v1;
+using System;
+using System.Threading.Tasks;
 
 namespace rygio.Controllers.v1
 {
@@ -17,9 +16,10 @@ namespace rygio.Controllers.v1
     public class InstanceController : ControllerBase
     {
         private readonly ILogger<InstanceController> _logger;
-
-        public InstanceController(ILogger<InstanceController> logger)
+        private readonly IMediator mediator;
+        public InstanceController(ILogger<InstanceController> logger, IMediator mediator)
         {
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
             _logger = logger;
         }
 
@@ -60,7 +60,8 @@ namespace rygio.Controllers.v1
         {
             try
             {
-                //var result = await mediator.Send(request);
+                PicknDropNotifierQuery request = new PicknDropNotifierQuery { group = ""};
+                   var result = await mediator.Send(request);
 
 
                 return Ok();

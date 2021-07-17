@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
@@ -32,8 +30,8 @@ namespace rygio.Domain.AppData
         public decimal EstimatedValue { get; set; }
         [Column(TypeName = "nvarchar(128)")]
         public string Reference { get; set; }
-        public virtual IEnumerable<ExperienceStage> Stages { get; set; }
-        public virtual IEnumerable<ExperienceMember> ExperienceMembers { get; set; }
+        public IEnumerable<ExperienceStage> Stages { get; set; }
+        public IEnumerable<ExperienceMember> ExperienceMembers { get; set; }
 
     }
 }

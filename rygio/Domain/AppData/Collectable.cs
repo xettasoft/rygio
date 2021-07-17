@@ -1,18 +1,15 @@
 ﻿
 using NetTopologySuite.Geometries;
 using rygio.Helper.enums;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
     public class Collectable : BaseEntity
     {
         [Column(TypeName = "nvarchar(128)")]
-        public string Name { get; set; } = "Collectable";
+        public string Name { get; set; } = "Collectible";
         [Column(TypeName = "nvarchar(64)")]
         public string Universal { get; set; }
         [Column(TypeName = "nvarchar(max)")]
@@ -39,6 +36,6 @@ namespace rygio.Domain.AppData
         public Point MintedAt { get; set; }
         [Column(TypeName = "nvarchar(128)")]
         public string Reference { get; set; }
-        public virtual IEnumerable<CollectableTrail> CollectableTrails { get; set; }
+        public IEnumerable<CollectableTrail> CollectableTrails { get; set; }
     }
 }

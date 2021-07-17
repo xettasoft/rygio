@@ -1,9 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using rygio.Hubs.V1;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,17 +14,19 @@ namespace rygio.Query.v1
         {
             //private readonly IUserRepository userRepository;
 
-            private IHubContext<NotificationHub, IHubClient> _notificationHub;
+            private IHubContext<RegionHub, IHubClient> _notificationHub;
 
-            public PicknDropNotifierQueryHandler(IHubContext<NotificationHub, IHubClient> hubContext)
+            public PicknDropNotifierQueryHandler(IHubContext<RegionHub, IHubClient> hubContext)
             {
                 _notificationHub = hubContext;
             }
 
             public async Task<bool> Handle(PicknDropNotifierQuery request, CancellationToken cancellationToken)
             {
-
-                ///await _notificationHub.Clients.Group("").NotifyClient(new Dtos.Respond.PicknDropNotificationDto { Message="Noting to show"});
+                
+                //await _notificationHub.Clients.All.ReceiveMessage(new InstanceQuery.Dtos.Request.ChatMessage { User = "Rygio", Message = "Gentle reminder that we are soon going to launch our product"});
+                await _notificationHub.Clients.Group("region_1").RegionSubscription("Hello roomies");
+                
                 //NotificationHub.
 
                 return true;

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
@@ -43,16 +41,16 @@ namespace rygio.Domain.AppData
         [Column(TypeName = "nvarchar(255)")]
         public string WebDeviceToken { get; set; }
         public bool IsActive { get; set; }
-        public virtual IEnumerable<Experience> Experiences { get; set; }
-        public virtual IEnumerable<ExperienceMember> ExperienceMembers { get; set; }
-        public virtual IEnumerable<Collectable> Collectables { get; set; }
-        public virtual IEnumerable<RegionMember> RegionMembers { get; set; }
-        public virtual IEnumerable<Post> Posts { get; set; }
-        public virtual IEnumerable<Comment> Comments { get; set; }
-        public virtual IEnumerable<Reply> Replies { get; set; }
-        public virtual IEnumerable<BankAccount> BankAccounts { get; set; }
-        public virtual IEnumerable<DebitCard> DebitCards { get; set; }
-        public virtual IEnumerable<RefreshToken> RefreshTokens { get; set; }
+        public IEnumerable<Experience> Experiences { get; set; }
+        public IEnumerable<ExperienceMember> ExperienceMembers { get; set; }
+        public IEnumerable<Collectable> Collectables { get; set; }
+        public IEnumerable<RegionMember> RegionMembers { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Reply> Replies { get; set; }
+        public IEnumerable<BankAccount> BankAccounts { get; set; }
+        public IEnumerable<DebitCard> DebitCards { get; set; }
+        public IEnumerable<RefreshToken> RefreshTokens { get; set; }
 
 
     }

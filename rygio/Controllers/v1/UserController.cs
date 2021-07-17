@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using rygio.Command;
 using rygio.Command.v1;
 using rygio.Command.v1.Dtos.Request;
 using rygio.Helper;
-using static rygio.Command.v1.RevokeTokenCommand;
+using System;
+using System.Threading.Tasks;
 
 namespace rygio.Controllers.v1
 {

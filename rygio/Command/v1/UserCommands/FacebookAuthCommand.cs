@@ -2,34 +2,31 @@
 using MediatR;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using rygio.Command.v1.Dtos.Request;
 using rygio.Command.v1.Dtos.Response;
 using rygio.Domain.AppData;
 using rygio.Domain.Interface;
 using rygio.Helper;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
 namespace rygio.Command.v1
 {
-    public class GoogleAuthenticationCommand : IRequest<AuthResponse>
+    public class FacebookAuthCommand : IRequest<AuthResponse>
     {
-        public ExternalAuthDto googleAuthDto { get; set; }
+        public ExternalAuthDto facebookAuthDto { get; set; }
 
-        public class GoogleAuthenticationCommandHandler : IRequestHandler<GoogleAuthenticationCommand, AuthResponse>
+        public class FacebookAuthCommandHandler : IRequestHandler<FacebookAuthCommand, AuthResponse>
         {
             private readonly IUserService userRepository;
             private readonly IMapper mapper;
-            private readonly IRepository<RefreshToken> refreshTokenRepository;
             private readonly AppSettings _appSettings;
+            private readonly IRepository<RefreshToken> refreshTokenRepository;
 
-            public GoogleAuthenticationCommandHandler(IUserService userRepository, IRepository<RefreshToken> refreshTokenRepository, IMapper mapper, IOptions<AppSettings> appSettings)
+            public FacebookAuthCommandHandler(IUserService userRepository, IMapper mapper, IRepository<RefreshToken> refreshTokenRepository, IOptions<AppSettings> appSettings)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -37,10 +34,9 @@ namespace rygio.Command.v1
                 this.refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
             }
 
-            public async Task<AuthResponse> Handle(GoogleAuthenticationCommand request, CancellationToken cancellationToken)
+            public async Task<AuthResponse> Handle(FacebookAuthCommand request, CancellationToken cancellationToken)
             {
-
-                var user = await userRepository.GoogleAuthentication(request.googleAuthDto.AccessToken);
+                var user = await userRepository.FacebookAuthentication(request.facebookAuthDto.AccessToken);
                 var expiry = DateTime.UtcNow.AddMinutes(_appSettings.AccessTokenExpiration);
                 var authRes = mapper.Map<AuthResponse>(user);
 

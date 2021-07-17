@@ -1,36 +1,33 @@
 ﻿using AutoMapper;
 using MediatR;
-using rygio.Command.v1;
 using rygio.Domain.AppData;
 using rygio.Domain.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace rygio.Command.v1
 {
-    public class GoogleRegisterCommand : IRequest<string>
+    public class RegisterCommand : IRequest<string>
     {
-        public ExternalAuthDto googleAuthDto { get; set; }
+        public UserRegisterationDto registerDto { get; set; }
 
-        public class GoogleRegisterCommandHandler : IRequestHandler<GoogleRegisterCommand, string>
+        public class RegisterCommandHandler : IRequestHandler<RegisterCommand, string>
         {
             private readonly IUserService userRepository;
             private readonly IMapper mapper;
 
-            public GoogleRegisterCommandHandler(IUserService userRepository, IMapper mapper)
+            public RegisterCommandHandler(IUserService userRepository, IMapper mapper)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             }
 
-            public async Task<string> Handle(GoogleRegisterCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(RegisterCommand request, CancellationToken cancellationToken)
             {
 
-
-                await userRepository.GoogleRegister(request.googleAuthDto.AccessToken);
+                var user = mapper.Map<User>(request.registerDto);
+                await userRepository.Register(user,request.registerDto.Password, request.registerDto.Password);
 
                 return "User created successfully";
 

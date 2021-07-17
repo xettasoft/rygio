@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
 using rygio.Command.v1;
-using rygio.Domain.AppData;
 using rygio.Domain.Interface;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

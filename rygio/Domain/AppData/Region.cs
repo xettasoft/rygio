@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
@@ -23,8 +20,8 @@ namespace rygio.Domain.AppData
         public string ConnectionId { get; set; }
         [Column(TypeName = "nvarchar(128)")]
         public string Reference { get; set; }
-        public virtual IEnumerable<Collectable> Collectables { get; set; }
-        public virtual IEnumerable<Post> Posts { get; set; }
-        public virtual IEnumerable<RegionMember> RegionMembers { get; set; }
+        public IEnumerable<Collectable> Collectables { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
+        public IEnumerable<RegionMember> RegionMembers { get; set; }
     }
 }

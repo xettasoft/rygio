@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace rygio.Domain.AppData
 {
@@ -19,6 +16,6 @@ namespace rygio.Domain.AppData
         public string MediaUrl { get; set; }
         [Column(TypeName = "nvarchar(128)")]
         public string Reference { get; set; }
-        public virtual IEnumerable<Comment> Comments { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }

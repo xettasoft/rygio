@@ -2,13 +2,11 @@
 using MediatR;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using rygio.Command.v1.Dtos.Request;
 using rygio.Command.v1.Dtos.Response;
 using rygio.Domain.AppData;
 using rygio.Domain.Interface;
 using rygio.Helper;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -18,32 +16,33 @@ using System.Threading.Tasks;
 
 namespace rygio.Command.v1
 {
-    public class LoginCommand : IRequest<AuthResponse>
+    public class GoogleAuthenticationCommand : IRequest<AuthResponse>
     {
-        public AuthDto authDto { get; set; }
+        public ExternalAuthDto googleAuthDto { get; set; }
 
-        public class LoginCommandHandler : IRequestHandler<LoginCommand, AuthResponse>
+        public class GoogleAuthenticationCommandHandler : IRequestHandler<GoogleAuthenticationCommand, AuthResponse>
         {
             private readonly IUserService userRepository;
-            private readonly IRepository<RefreshToken> refreshTokenRepository;
             private readonly IMapper mapper;
-            private AppSettings _appSettings;
+            private readonly IRepository<RefreshToken> refreshTokenRepository;
+            private readonly AppSettings _appSettings;
 
-            public LoginCommandHandler(IUserService userRepository, IRepository<RefreshToken> refreshTokenRepository, IMapper mapper, IOptions<AppSettings> appSettings)
+            public GoogleAuthenticationCommandHandler(IUserService userRepository, IRepository<RefreshToken> refreshTokenRepository, IMapper mapper, IOptions<AppSettings> appSettings)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-                this.refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
                 _appSettings = appSettings.Value ?? throw new ArgumentNullException(nameof(appSettings));
+                this.refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
             }
 
-            public async Task<AuthResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
+            public async Task<AuthResponse> Handle(GoogleAuthenticationCommand request, CancellationToken cancellationToken)
             {
 
-                //var user = mapper.Map<User>(request.registerDto);
+                var user = await userRepository.GoogleAuthentication(request.googleAuthDto.AccessToken);
                 var expiry = DateTime.UtcNow.AddMinutes(_appSettings.AccessTokenExpiration);
-                var user = await userRepository.Authenticate(request.authDto.Username, request.authDto.Password);
                 var authRes = mapper.Map<AuthResponse>(user);
+
+                if (user == null) throw new AppException("No such user in our database.");
 
                 if (user.RefreshTokens.Any(a => a.IsActive))
                 {
@@ -64,7 +63,7 @@ namespace rygio.Command.v1
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-               
+
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {

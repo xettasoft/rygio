@@ -8,41 +8,41 @@ using rygio.Domain.AppData;
 using rygio.Domain.Interface;
 using rygio.Helper;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 namespace rygio.Command.v1
 {
-    public class FacebookAuthCommand : IRequest<AuthResponse>
+    public class LoginCommand : IRequest<AuthResponse>
     {
-        public ExternalAuthDto facebookAuthDto { get; set; }
+        public AuthDto authDto { get; set; }
 
-        public class FacebookAuthCommandHandler : IRequestHandler<FacebookAuthCommand, AuthResponse>
+        public class LoginCommandHandler : IRequestHandler<LoginCommand, AuthResponse>
         {
             private readonly IUserService userRepository;
-            private readonly IMapper mapper;
-            private readonly AppSettings _appSettings;
             private readonly IRepository<RefreshToken> refreshTokenRepository;
+            private readonly IMapper mapper;
+            private AppSettings _appSettings;
 
-            public FacebookAuthCommandHandler(IUserService userRepository, IMapper mapper, IRepository<RefreshToken> refreshTokenRepository, IOptions<AppSettings> appSettings)
+            public LoginCommandHandler(IUserService userRepository, IRepository<RefreshToken> refreshTokenRepository, IMapper mapper, IOptions<AppSettings> appSettings)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+                this.refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
                 _appSettings = appSettings.Value ?? throw new ArgumentNullException(nameof(appSettings));
-                this.refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));
             }
 
-            public async Task<AuthResponse> Handle(FacebookAuthCommand request, CancellationToken cancellationToken)
+            public async Task<AuthResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
             {
-                var user = await userRepository.FacebookAuthentication(request.facebookAuthDto.AccessToken);
-                var expiry = DateTime.UtcNow.AddMinutes(_appSettings.AccessTokenExpiration);
-                var authRes = mapper.Map<AuthResponse>(user);
 
-                if (user == null) throw new AppException("No such user in our database.");
+                //var user = mapper.Map<User>(request.registerDto);
+                var expiry = DateTime.UtcNow.AddMinutes(_appSettings.AccessTokenExpiration);
+                var user = await userRepository.Authenticate(request.authDto.Username, request.authDto.Password);
+                var authRes = mapper.Map<AuthResponse>(user);
 
                 if (user.RefreshTokens.Any(a => a.IsActive))
                 {
@@ -63,7 +63,7 @@ namespace rygio.Command.v1
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-
+               
 
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {

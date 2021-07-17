@@ -1,31 +1,26 @@
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using rygio.DataAccess;
+using rygio.DataAccess.Repository;
+using rygio.Domain.Interface;
+using rygio.Helper;
+using rygio.Hubs.V1;
+using Swashbuckle.AspNetCore.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using rygio.DataAccess;
-using rygio.DataAccess.Repository;
-using rygio.Domain.AppData;
-using rygio.Domain.Interface;
-using rygio.Helper;
-using rygio.Hubs.V1;
-
-using Swashbuckle.AspNetCore.Filters;
 
 namespace rygio
 {
@@ -41,6 +36,17 @@ namespace rygio
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ClientPermission", policy =>
+                {
+                    policy.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:3000")
+                        .AllowCredentials();
+                });
+            });
+
             services.AddVersionedApiExplorer(o =>
             {
                 o.GroupNameFormat = "'v'VVV";
@@ -158,28 +164,23 @@ namespace rygio
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                List<SwaggerOptions> swaggerOptions = new List<SwaggerOptions>();
+                Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+                app.UseSwagger(options => {
+                    swaggerOptions.ForEach(x => {
+                        options.RouteTemplate = x.JsonRoute;
+                    });
+                });
+                app.UseSwaggerUI(option =>
+                {
+                    swaggerOptions.ForEach(x => {
+                        option.SwaggerEndpoint(x.UIEndpoint, x.Description);
+                    });
+                });
             }
 
-            List<SwaggerOptions> swaggerOptions = new List<SwaggerOptions>();
-            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
-            app.UseSwagger(options => {
-                swaggerOptions.ForEach(x => {
-                    options.RouteTemplate = x.JsonRoute;
-                });
-                 });
-            app.UseSwaggerUI(option =>
-            {
-                swaggerOptions.ForEach(x => {
-                    option.SwaggerEndpoint(x.UIEndpoint, x.Description);
-                }) ; 
-                
-                
-                
-            });
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+
+            app.UseCors("ClientPermission");
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -187,10 +188,9 @@ namespace rygio
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseAuthorization();
-            //app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<NotificationHub>("/notify");
+                endpoints.MapHub<RegionHub>("/hubs/region");
                 endpoints.MapControllers();
                 
             });

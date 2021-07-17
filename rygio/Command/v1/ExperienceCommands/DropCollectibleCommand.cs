@@ -2,12 +2,9 @@
 using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using rygio.Command.v1.Dtos.Response;
-using rygio.Domain.AppData;
 using rygio.Domain.Interface;
 using rygio.Hubs.V1;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,9 +18,9 @@ namespace rygio.Command.v1
         {
             private readonly IUserService userRepository;
             private readonly IMapper mapper;
-            private IHubContext<NotificationHub, IHubClient> _notificationHub;
+            private IHubContext<RegionHub, IHubClient> _notificationHub;
 
-            public DropCollectibleCommandHandler(IUserService userRepository, IMapper mapper, IHubContext<NotificationHub, IHubClient> hubContext)
+            public DropCollectibleCommandHandler(IUserService userRepository, IMapper mapper, IHubContext<RegionHub, IHubClient> hubContext)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
@@ -35,7 +32,7 @@ namespace rygio.Command.v1
 
 
                 //await _notificationHub.Clients.Group("").NotifyClient(new PicknDropNotificationDto { Message = "Noting to show" });
-                await _notificationHub.Clients.All.NotifyClient(new PicknDropNotificationDto { Message = "Noting to show or is there something" });
+                //await _notificationHub.Clients.All.ReceiveMessage(new PicknDropNotificationDto { Message = "Noting to show or is there something" });
                 // var newtoken = await userRepository.RefreshToken(request.token);
 
                 return true;

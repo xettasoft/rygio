@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace rygio.Domain.AppData
 {
@@ -14,6 +10,6 @@ namespace rygio.Domain.AppData
         public int? UserId { get; set; }
         //[Column(TypeName = "bigint")]
         public int? PostId { get; set; }
-        public virtual IEnumerable<Reply> Replies { get; set; }
+        //public virtual IEnumerable<Reply> Replies { get; set; }
     }
 }
