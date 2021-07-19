@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using rygio.DataAccess;
@@ -10,9 +11,10 @@ using rygio.DataAccess;
 namespace rygio.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210718125231_migration007")]
+    partial class migration007
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,6 +230,57 @@ namespace rygio.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("rygio.Domain.AppData.Coordinate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<Geometry>("Border")
+                        .HasColumnType("geography");
+
+                    b.Property<int>("CoordinateType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsAction")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSearchable")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("LastModifiedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Point>("Location")
+                        .HasColumnType("geometry");
+
+                    b.Property<int?>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RegionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Coordinates");
+                });
+
             modelBuilder.Entity("rygio.Domain.AppData.DebitCard", b =>
                 {
                     b.Property<int>("Id")
@@ -282,9 +335,6 @@ namespace rygio.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<Geometry>("Border")
-                        .HasColumnType("geography");
-
                     b.Property<string>("ConnectionId")
                         .HasColumnType("nvarchar(255)");
 
@@ -317,9 +367,6 @@ namespace rygio.Migrations
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Point>("Location")
-                        .HasColumnType("geometry");
 
                     b.Property<string>("MediaUrl")
                         .HasColumnType("nvarchar(max)");
@@ -400,8 +447,8 @@ namespace rygio.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Geometry>("Border")
-                        .HasColumnType("geography");
+                    b.Property<int?>("CoordinateId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -423,9 +470,6 @@ namespace rygio.Migrations
 
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<Point>("Location")
-                        .HasColumnType("geometry");
 
                     b.Property<string>("Puzzle")
                         .HasColumnType("nvarchar(500)");
@@ -714,9 +758,6 @@ namespace rygio.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<double>("Radius")
-                        .HasColumnType("float");
-
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(128)");
 
@@ -729,7 +770,7 @@ namespace rygio.Migrations
                     b.ToTable("Regions");
                 });
 
-            modelBuilder.Entity("rygio.Domain.AppData.RegionResident", b =>
+            modelBuilder.Entity("rygio.Domain.AppData.RegionMember", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -784,7 +825,7 @@ namespace rygio.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RegionResidents");
+                    b.ToTable("RegionMembers");
                 });
 
             modelBuilder.Entity("rygio.Domain.AppData.Reply", b =>
@@ -1203,10 +1244,10 @@ namespace rygio.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("rygio.Domain.AppData.RegionResident", b =>
+            modelBuilder.Entity("rygio.Domain.AppData.RegionMember", b =>
                 {
                     b.HasOne("rygio.Domain.AppData.Region", null)
-                        .WithMany("RegionResidents")
+                        .WithMany("RegionMembers")
                         .HasForeignKey("RegionId");
 
                     b.HasOne("rygio.Domain.AppData.User", null)
@@ -1258,7 +1299,7 @@ namespace rygio.Migrations
 
                     b.Navigation("Posts");
 
-                    b.Navigation("RegionResidents");
+                    b.Navigation("RegionMembers");
                 });
 
             modelBuilder.Entity("rygio.Domain.AppData.Room", b =>

@@ -164,7 +164,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.PostController.create">
+        <member name="M:rygio.Controllers.v1.PostController.Create(rygio.Command.v1.PostCommands.Dtos.MakePostDto)">
             <summary>
             make a post (location based or regional)
             </summary>
@@ -236,7 +236,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.RegionController.create">
+        <member name="M:rygio.Controllers.v1.RegionController.create(rygio.Command.v1.RegionCommands.Dtos.Request.NewRegionDto)">
             <summary>
             Create a region
             </summary>
@@ -276,9 +276,9 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.RegionController.getAll">
+        <member name="M:rygio.Controllers.v1.RegionController.getAll(rygio.Query.v1.RegionQuery.Dtos.Request.NearestRegionDto)">
             <summary>
-            get all user Region
+            get nearest Region
             </summary>
             <remarks>
             </remarks>

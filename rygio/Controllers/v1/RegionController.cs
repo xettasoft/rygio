@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using rygio.Command.v1.RegionCommands;
+using rygio.Command.v1.RegionCommands.Dtos.Request;
+using rygio.Query.v1.RegionQuery;
+using rygio.Query.v1.RegionQuery.Dtos.Request;
 using System;
 using System.Threading.Tasks;
 
@@ -14,10 +19,12 @@ namespace rygio.Controllers.v1
     public class RegionController : ControllerBase
     {
         private readonly ILogger<RegionController> _logger;
+        private readonly IMediator mediator;
 
-        public RegionController(ILogger<RegionController> logger)
+        public RegionController(ILogger<RegionController> logger, IMediator mediator)
         {
             _logger = logger;
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         /// <summary>
@@ -26,16 +33,19 @@ namespace rygio.Controllers.v1
         /// <remarks>
         /// </remarks>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> create()
+        public async Task<IActionResult> create([FromBody] NewRegionDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                int user =int.Parse( User.Identity.Name);
+                CreateRegionCommand request = new CreateRegionCommand { RegionDto = dto, User = user };
+                var result = await mediator.Send(request);
 
 
-                return Ok();
+                return Ok(new { message = result});
 
             }
             catch (Exception ex)
@@ -51,6 +61,7 @@ namespace rygio.Controllers.v1
         /// <remarks>
         /// </remarks>
         /// <returns></returns>
+        
         [HttpPost]
         [Route("member")]
         public async Task<IActionResult> member()
@@ -147,20 +158,19 @@ namespace rygio.Controllers.v1
 
 
         /// <summary>
-        /// get all user Region
+        /// get nearest Region
         /// </summary>
         /// <remarks>
         /// </remarks>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> getAll()
+        public async Task<IActionResult> getAll([FromQuery] NearestRegionDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
-
-
-                return Ok();
+                NearestRegionQuery request = new NearestRegionQuery {pageParameter = dto };
+                var result = await mediator.Send(request);
+                return Ok(result);
 
             }
             catch (Exception ex)

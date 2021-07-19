@@ -24,9 +24,9 @@ namespace rygio.Command.v1
             private readonly IUserService userRepository;
             private readonly IMapper mapper;
             private readonly AppSettings _appSettings;
-            private readonly IRepository<RefreshToken> refreshTokenRepository;
+            private readonly IService<RefreshToken> refreshTokenRepository;
 
-            public FacebookAuthCommandHandler(IUserService userRepository, IMapper mapper, IRepository<RefreshToken> refreshTokenRepository, IOptions<AppSettings> appSettings)
+            public FacebookAuthCommandHandler(IUserService userRepository, IMapper mapper, IService<RefreshToken> refreshTokenRepository, IOptions<AppSettings> appSettings)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

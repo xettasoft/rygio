@@ -24,10 +24,10 @@ namespace rygio.Command.v1
         {
             private readonly IUserService userRepository;
             private readonly IMapper mapper;
-            private readonly IRepository<RefreshToken> refreshTokenRepository;
+            private readonly IService<RefreshToken> refreshTokenRepository;
             private readonly AppSettings _appSettings;
 
-            public GoogleAuthenticationCommandHandler(IUserService userRepository, IRepository<RefreshToken> refreshTokenRepository, IMapper mapper, IOptions<AppSettings> appSettings)
+            public GoogleAuthenticationCommandHandler(IUserService userRepository, IService<RefreshToken> refreshTokenRepository, IMapper mapper, IOptions<AppSettings> appSettings)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));

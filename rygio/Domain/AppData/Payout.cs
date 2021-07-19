@@ -14,11 +14,8 @@ namespace rygio.Domain.AppData
         public string PaymentId { get; set; }
         [Column(TypeName = "nvarchar(255)")]
         public string Comment { get; set; }
-        //[Column(TypeName = "bigint")]
         public int? CollectableId { get; set; }
-        //[Column(TypeName = "bigint")]
         public int? PaidBy { get; set; }
-        //[Column(TypeName = "bigint")]
         public int? BankAccountId { get; set; }
     }
 }

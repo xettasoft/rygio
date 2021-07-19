@@ -10,7 +10,6 @@ namespace rygio.DataAccess
         public DbSet<Collectable> Collectables { get; set; }
         public DbSet<CollectableTrail> CollectableTrails { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<Coordinate> Coordinates { get; set; }
         public DbSet<DebitCard> DebitCards { get; set; }
         public DbSet<Experience> Experiences { get; set; }
         public DbSet<ExperienceMember> ExperienceMembers { get; set; }
@@ -20,10 +19,13 @@ namespace rygio.DataAccess
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostMember> PostMembers { get; set; }
         public DbSet<Region> Regions { get; set; }
-        public DbSet<RegionMember> RegionMembers { get; set; }
+        public DbSet<RegionResident> RegionResidents { get; set; }
         public DbSet<Reply> Replies { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Sphere> Spheres { get; set; }
+        public DbSet<Room> Rooms { get; set; }
+        public DbSet<RoomMember> RoomMembers { get; set; }
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)

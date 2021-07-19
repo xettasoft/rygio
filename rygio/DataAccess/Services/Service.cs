@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace rygio.DataAccess.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class, new()
+    public class Service<T> : IService<T> where T : class, new()
     {
         private ApplicationDbContext _context;
 
-        public Repository(ApplicationDbContext context)
+        public Service(ApplicationDbContext context)
         {
             _context = context;
         }

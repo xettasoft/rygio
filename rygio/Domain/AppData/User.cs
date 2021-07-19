@@ -44,7 +44,7 @@ namespace rygio.Domain.AppData
         public IEnumerable<Experience> Experiences { get; set; }
         public IEnumerable<ExperienceMember> ExperienceMembers { get; set; }
         public IEnumerable<Collectable> Collectables { get; set; }
-        public IEnumerable<RegionMember> RegionMembers { get; set; }
+        public IEnumerable<RegionResident> RegionMembers { get; set; }
         public IEnumerable<Post> Posts { get; set; }
         public IEnumerable<Comment> Comments { get; set; }
         public IEnumerable<Reply> Replies { get; set; }

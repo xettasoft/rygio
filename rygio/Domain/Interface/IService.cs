@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace rygio.Domain.Interface
 {
-    public interface IRepository<T> where T : class, new()
+    public interface IService<T> where T : class, new()
     {
         Task<IEnumerable<T>> AllIncluding(params Expression<Func<T, object>>[] includeProperties);
         PageList<T> GetAll(PageParameter pagination);

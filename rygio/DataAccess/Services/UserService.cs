@@ -19,7 +19,7 @@ using System.Linq;
 
 namespace rygio.DataAccess.Repository
 {
-    public class UserService : Repository<User>, IUserService
+    public class UserService : Service<User>, IUserService
     {
         private readonly ApplicationDbContext _context;
         private readonly AppSettings _appSettings;

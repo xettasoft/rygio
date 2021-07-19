@@ -24,11 +24,11 @@ namespace rygio.Command.v1
         public class LoginCommandHandler : IRequestHandler<LoginCommand, AuthResponse>
         {
             private readonly IUserService userRepository;
-            private readonly IRepository<RefreshToken> refreshTokenRepository;
+            private readonly IService<RefreshToken> refreshTokenRepository;
             private readonly IMapper mapper;
             private AppSettings _appSettings;
 
-            public LoginCommandHandler(IUserService userRepository, IRepository<RefreshToken> refreshTokenRepository, IMapper mapper, IOptions<AppSettings> appSettings)
+            public LoginCommandHandler(IUserService userRepository, IService<RefreshToken> refreshTokenRepository, IMapper mapper, IOptions<AppSettings> appSettings)
             {
                 this.userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
                 this.refreshTokenRepository = refreshTokenRepository ?? throw new ArgumentNullException(nameof(refreshTokenRepository));

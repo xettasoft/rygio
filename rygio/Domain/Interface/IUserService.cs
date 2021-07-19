@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace rygio.Domain.Interface
 {
-    public interface IUserService : IRepository<User>
+    public interface IUserService : IService<User>
     {
         Task<RefreshTokenResponse> RefreshToken(string refreshtoken);
         Task<string> RevokeRefreshToken(string refreshtoken);

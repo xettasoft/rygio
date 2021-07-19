@@ -9,8 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using NetTopologySuite.Geometries;
 using rygio.DataAccess;
 using rygio.DataAccess.Repository;
+using rygio.DataAccess.Services;
 using rygio.Domain.Interface;
 using rygio.Helper;
 using rygio.Hubs.V1;
@@ -153,9 +155,11 @@ namespace rygio
                     
                 };
             });
-
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            
+            services.AddScoped(typeof(IService<>), typeof(Service<>));
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRegionService, RegionService>();
+       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

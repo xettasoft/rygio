@@ -26,11 +26,8 @@ namespace rygio.Domain.AppData
         public string TermsAndConditions { get; set; }
         [Column(TypeName = "decimal(18,4)")]
         public decimal Value { get; set; }
-        //[Column(TypeName = "bigint")]
         public int? UserId { get; set; }
-        //[Column(TypeName = "bigint")]
         public int RegionId { get; set; }
-        //[Column(TypeName = "bigint")]
         public int? TransactionId { get; set; }
         [Column(TypeName = "geometry")]
         public Point MintedAt { get; set; }

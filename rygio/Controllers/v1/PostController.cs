@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using rygio.Command.v1.PostCommands;
+using rygio.Command.v1.PostCommands.Dtos;
 using System;
 using System.Threading.Tasks;
 
@@ -14,10 +17,12 @@ namespace rygio.Controllers.v1
     public class PostController : ControllerBase
     {
         private readonly ILogger<PostController> _logger;
+        private readonly IMediator mediator;
 
-        public PostController(ILogger<PostController> logger)
+        public PostController(ILogger<PostController> logger, IMediator mediator)
         {
             _logger = logger;
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         /// <summary>
@@ -28,14 +33,16 @@ namespace rygio.Controllers.v1
         /// <returns></returns>
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> create()
+        public async Task<IActionResult> Create([FromBody] MakePostDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                int user = int.Parse(User.Identity.Name);
+                CreatePostCommand request = new() { PostDto = dto, User = user };
+                var result = await mediator.Send(request);
 
 
-                return Ok();
+                return Ok(new { message = result });
 
             }
             catch (Exception ex)

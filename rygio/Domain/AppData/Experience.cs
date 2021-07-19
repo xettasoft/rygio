@@ -1,4 +1,5 @@
-﻿using rygio.Helper.enums;
+﻿using NetTopologySuite.Geometries;
+using rygio.Helper.enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,7 +15,6 @@ namespace rygio.Domain.AppData
         [Column(TypeName = "nvarchar(255)")]
         public string Description { get; set; }
         public ExperienceType ExperienceType { get; set; }
-        //[Column(TypeName = "bigint")]
         public int? UserId { get; set; }
         [Column(TypeName = "nvarchar(255)")]
         public string ConnectionId { get; set; }
@@ -30,6 +30,9 @@ namespace rygio.Domain.AppData
         public decimal EstimatedValue { get; set; }
         [Column(TypeName = "nvarchar(128)")]
         public string Reference { get; set; }
+        [Column(TypeName = "geometry")]
+        public Point Location { get; set; }
+        public Geometry Border { get; set; }
         public IEnumerable<ExperienceStage> Stages { get; set; }
         public IEnumerable<ExperienceMember> ExperienceMembers { get; set; }
 

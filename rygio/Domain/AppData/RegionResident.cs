@@ -1,17 +1,15 @@
 ﻿namespace rygio.Domain.AppData
 {
-    public class RegionMember : BaseEntity
+    public class RegionResident : BaseEntity
     {
-        //[Column(TypeName = "bigint")]
         public int? RegionId { get; set; }
-        //[Column(TypeName = "bigint")]
         public int? UserId { get; set; }
         public bool IsSuperAdmin { get; set; } = false;
         public bool IsAdmin { get; set; } = false;
         public bool IsBlocked { get; set; } = false;
         public bool IsAvailable { get; set; } = false;
-        public bool CanMint { get; set; }
-        public bool CanRedeem { get; set; }
-        public bool CanDelete { get; set; }
+        public bool CanMint { get; set; } = false;
+        public bool CanRedeem { get; set; } = false;
+        public bool CanDelete { get; set; } = false;
     }
 }
