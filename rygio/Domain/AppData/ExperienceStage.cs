@@ -8,7 +8,7 @@ namespace rygio.Domain.AppData
     public class ExperienceStage : BaseEntity
     {
 
-        public int? ExperienceId { get; set; }
+        public int ExperienceId { get; set; }
         public int Stage { get; set; } = 1;
         [Column(TypeName = "nvarchar(500)")]
         public string Puzzle { get; set; }

@@ -41,7 +41,7 @@ namespace rygio.Controllers.v1
             try
             {
                 int user =int.Parse( User.Identity.Name);
-                CreateRegionCommand request = new CreateRegionCommand { RegionDto = dto, User = user };
+                CreateCommand request = new CreateCommand { RegionDto = dto, User = user };
                 var result = await mediator.Send(request);
 
 
@@ -168,7 +168,7 @@ namespace rygio.Controllers.v1
         {
             try
             {
-                NearestRegionQuery request = new NearestRegionQuery {pageParameter = dto };
+                NearestQuery request = new NearestQuery {pageParameter = dto };
                 var result = await mediator.Send(request);
                 return Ok(result);
 

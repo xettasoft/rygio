@@ -13,12 +13,14 @@
   <ItemGroup>
     <Folder Include="Attributes\" />
     <Folder Include="Middleware\" />
+    <Folder Include="Query\v1\ExperienceQuery\Dtos\" />
     <Folder Include="Query\v1\InstanceQuery\Dtos\Respond\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.0" />
     <PackageReference Include="Google.Apis.PeopleService.v1" Version="1.52.0.2384" />
     <PackageReference Include="Google.Cloud.Storage.V1" Version="3.5.0" />
     <PackageReference Include="MediatR" Version="9.0.0" />

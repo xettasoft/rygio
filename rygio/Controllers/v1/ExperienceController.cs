@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using rygio.Command.v1;
+using rygio.Command.v1.ExperienceCommands;
+using rygio.Command.v1.ExperienceCommands.Dtos;
 using rygio.Helper;
 using System;
 using System.Threading.Tasks;
@@ -32,14 +34,16 @@ namespace rygio.Controllers.v1
         /// <returns></returns>
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> create()
+        public async Task<IActionResult> create([FromBody] ExperienceDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                int user = int.Parse(User.Identity.Name);
+                CreateCommand request = new CreateCommand { ExperienceDto = dto, User = user };
+                var result = await mediator.Send(request);
 
 
-                return Ok();
+                return Ok(new { message = result });
 
             }
             catch (Exception ex)
@@ -62,7 +66,7 @@ namespace rygio.Controllers.v1
         {
             try
             {
-                DropCollectibleCommand request = new DropCollectibleCommand { token="" };
+                DropCommand request = new DropCommand { token="" };
                 var result = await mediator.Send(request);
 
 

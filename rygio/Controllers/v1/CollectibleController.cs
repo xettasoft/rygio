@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using rygio.Command.v1.CollectibleCommand;
+using rygio.Command.v1.CollectibleCommand.Dtos;
+using rygio.Query.v1.CollectibleQuery;
+using rygio.Query.v1.CollectibleQuery.RequestDto;
 using System;
 using System.Threading.Tasks;
 
@@ -15,9 +20,11 @@ namespace rygio.Controllers.v1
     {
         private readonly ILogger<CollectibleController> _logger;
 
-        public CollectibleController(ILogger<CollectibleController> logger)
+        private readonly IMediator mediator;
+        public CollectibleController(ILogger<CollectibleController> logger, IMediator mediator)
         {
             _logger = logger;
+            this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
         /// <summary>
@@ -28,14 +35,16 @@ namespace rygio.Controllers.v1
         /// <returns></returns>
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> create()
+        public async Task<IActionResult> create([FromBody] CreateDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                int user = int.Parse(User.Identity.Name);
+                CreateCommand request = new CreateCommand { CreateDto = dto, User = user };
+                var result = await mediator.Send(request);
 
 
-                return Ok();
+                return Ok(new { message = result });
 
             }
             catch (Exception ex)
@@ -53,14 +62,16 @@ namespace rygio.Controllers.v1
         /// <returns></returns>
         [HttpPost]
         [Route("mint")]
-        public async Task<IActionResult> mint()
+        public async Task<IActionResult> minted([FromBody] MintDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                int user = int.Parse(User.Identity.Name);
+                MintCommand request = new MintCommand { MintDto = dto, User = user };
+                var result = await mediator.Send(request);
 
 
-                return Ok();
+                return Ok(new { message = result });
 
             }
             catch (Exception ex)
@@ -126,14 +137,14 @@ namespace rygio.Controllers.v1
         /// </remarks>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> getAll()
+        public async Task<IActionResult> getAll([FromQuery] UserQueryDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
-
-
-                return Ok();
+                int user = int.Parse(User.Identity.Name);
+                UserQuery request = new UserQuery { pageParameter = dto, User=user };
+                var result = await mediator.Send(request);
+                return Ok(result);
 
             }
             catch (Exception ex)

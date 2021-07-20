@@ -27,7 +27,7 @@ namespace rygio.Domain.AppData
         [Column(TypeName = "decimal(18,4)")]
         public decimal Value { get; set; }
         public int? UserId { get; set; }
-        public int RegionId { get; set; }
+        public int? RegionId { get; set; }
         public int? TransactionId { get; set; }
         [Column(TypeName = "geometry")]
         public Point MintedAt { get; set; }

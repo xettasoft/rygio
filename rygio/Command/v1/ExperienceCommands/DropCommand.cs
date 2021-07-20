@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace rygio.Command.v1
 {
-    public class DropCollectibleCommand : IRequest<bool>
+    public class DropCommand : IRequest<bool>
     {
         public string token { get; set; }
 
-        public class DropCollectibleCommandHandler : IRequestHandler<DropCollectibleCommand, bool>
+        public class DropCollectibleCommandHandler : IRequestHandler<DropCommand, bool>
         {
             private readonly IUserService userRepository;
             private readonly IMapper mapper;
@@ -27,7 +27,7 @@ namespace rygio.Command.v1
                 _notificationHub = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
             }
 
-            public async Task<bool> Handle(DropCollectibleCommand request, CancellationToken cancellationToken)
+            public async Task<bool> Handle(DropCommand request, CancellationToken cancellationToken)
             {
 
 

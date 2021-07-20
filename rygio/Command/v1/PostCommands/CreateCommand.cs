@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace rygio.Command.v1.PostCommands
 {
-    public class CreatePostCommand : IRequest<string>
+    public class CreateCommand : IRequest<string>
     {
         public MakePostDto PostDto { get; set; }
         public int User { get; set; }
 
-        public class CreatePostCommandHandler : IRequestHandler<CreatePostCommand, string>
+        public class CreatePostCommandHandler : IRequestHandler<CreateCommand, string>
         {
             private readonly IRegionService regionService;
             private readonly IMapper mapper;
@@ -27,7 +27,7 @@ namespace rygio.Command.v1.PostCommands
                 this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             }
 
-            public async Task<string> Handle(CreatePostCommand request, CancellationToken cancellationToken)
+            public async Task<string> Handle(CreateCommand request, CancellationToken cancellationToken)
             {
                 var point = RygioGeometry.LatLngMaker(request.PostDto.Latitude, request.PostDto.Longitude);
                 var region = await regionService.GetSingle(x => x.Id == request.PostDto.Region);

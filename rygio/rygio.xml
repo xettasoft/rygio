@@ -4,7 +4,7 @@
         <name>rygio</name>
     </assembly>
     <members>
-        <member name="M:rygio.Controllers.v1.CollectibleController.create">
+        <member name="M:rygio.Controllers.v1.CollectibleController.create(rygio.Command.v1.CollectibleCommand.Dtos.CreateDto)">
             <summary>
             Create a collectible template
             </summary>
@@ -12,7 +12,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.CollectibleController.mint">
+        <member name="M:rygio.Controllers.v1.CollectibleController.minted(rygio.Command.v1.CollectibleCommand.Dtos.MintDto)">
             <summary>
             Mint a collectible
             </summary>
@@ -36,7 +36,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.CollectibleController.getAll">
+        <member name="M:rygio.Controllers.v1.CollectibleController.getAll(rygio.Query.v1.CollectibleQuery.RequestDto.UserQueryDto)">
             <summary>
             get all user collectibles
             </summary>
@@ -68,7 +68,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.create">
+        <member name="M:rygio.Controllers.v1.ExperienceController.create(rygio.Command.v1.ExperienceCommands.Dtos.ExperienceDto)">
             <summary>
             Create an Experience
             </summary>

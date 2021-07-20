@@ -14,8 +14,12 @@ namespace rygio.Domain.AppData
         public string MediaUrl { get; set; }
         [Column(TypeName = "nvarchar(255)")]
         public string Description { get; set; }
+        [Column(TypeName = "nvarchar(64)")]
+        public string Universal { get; set; }
         public ExperienceType ExperienceType { get; set; }
+        public ExperienceState State { get; set; }
         public int? UserId { get; set; }
+        public int? RegionId { get; set; }
         [Column(TypeName = "nvarchar(255)")]
         public string ConnectionId { get; set; }
         public bool IsPrivate { get; set; } = false;

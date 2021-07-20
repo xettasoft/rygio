@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
 using rygio.DataAccess;
@@ -10,9 +11,10 @@ using rygio.DataAccess;
 namespace rygio.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210719220858_migration011")]
+    partial class migration011
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -330,23 +332,14 @@ namespace rygio.Migrations
                     b.Property<string>("Reference")
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<int?>("RegionId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartBy")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("State")
-                        .HasColumnType("int");
 
                     b.Property<int>("TargetMembers")
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,4)");
-
-                    b.Property<string>("Universal")
-                        .HasColumnType("nvarchar(64)");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
@@ -375,7 +368,7 @@ namespace rygio.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ExperienceId")
+                    b.Property<int?>("ExperienceId")
                         .HasColumnType("int");
 
                     b.Property<bool>("HasPaid")
@@ -418,7 +411,7 @@ namespace rygio.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ExperienceId")
+                    b.Property<int?>("ExperienceId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -468,7 +461,7 @@ namespace rygio.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ExperienceStageId")
+                    b.Property<int?>("ExperienceStageId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -1171,9 +1164,7 @@ namespace rygio.Migrations
                 {
                     b.HasOne("rygio.Domain.AppData.Experience", null)
                         .WithMany("ExperienceMembers")
-                        .HasForeignKey("ExperienceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExperienceId");
 
                     b.HasOne("rygio.Domain.AppData.User", null)
                         .WithMany("ExperienceMembers")
@@ -1184,18 +1175,14 @@ namespace rygio.Migrations
                 {
                     b.HasOne("rygio.Domain.AppData.Experience", null)
                         .WithMany("Stages")
-                        .HasForeignKey("ExperienceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExperienceId");
                 });
 
             modelBuilder.Entity("rygio.Domain.AppData.ExperienceStageCollectible", b =>
                 {
                     b.HasOne("rygio.Domain.AppData.ExperienceStage", null)
                         .WithMany("Collectibles")
-                        .HasForeignKey("ExperienceStageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExperienceStageId");
                 });
 
             modelBuilder.Entity("rygio.Domain.AppData.Post", b =>

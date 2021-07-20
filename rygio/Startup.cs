@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -9,11 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NetTopologySuite.Geometries;
 using rygio.DataAccess;
 using rygio.DataAccess.Repository;
-using rygio.DataAccess.Services;
 using rygio.Domain.Interface;
+using rygio.Filters;
 using rygio.Helper;
 using rygio.Hubs.V1;
 using Swashbuckle.AspNetCore.Filters;
@@ -67,6 +67,14 @@ namespace rygio
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddSignalR();
             services.AddControllers();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new ValidationFilter());
+            })
+            .AddFluentValidation(options =>
+            {
+                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

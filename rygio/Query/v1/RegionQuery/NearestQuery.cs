@@ -19,11 +19,11 @@ using System.Threading.Tasks;
 
 namespace rygio.Query.v1.RegionQuery
 {
-    public class NearestRegionQuery : IRequest<NearestRegionResponseDto>
+    public class NearestQuery : IRequest<NearestRegionResponseDto>
     {
         public NearestRegionDto pageParameter { get; set; }
 
-        public class NearestRegionQueryHandler : IRequestHandler<NearestRegionQuery, NearestRegionResponseDto>
+        public class NearestRegionQueryHandler : IRequestHandler<NearestQuery, NearestRegionResponseDto>
         {
             private readonly IRegionService regionService;
             private readonly IMapper mapper;
@@ -38,7 +38,7 @@ namespace rygio.Query.v1.RegionQuery
 
 
 
-            public async Task<NearestRegionResponseDto> Handle(NearestRegionQuery query, CancellationToken cancellationToken)
+            public async Task<NearestRegionResponseDto> Handle(NearestQuery query, CancellationToken cancellationToken)
             {
                 var point = RygioGeometry.LatLngMaker(query.pageParameter.Latitude,query.pageParameter.Longitude);
                 PageList<Region> result;

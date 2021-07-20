@@ -2,8 +2,8 @@
 {
     public enum CollectableType
     {
+        NotSet = 000,
         Envelope = 200,
-        Badge = 201,
-        GiftCard = 202
+        GiftCard = 201
     }
 }

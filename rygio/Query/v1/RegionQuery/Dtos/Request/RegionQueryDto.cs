@@ -16,6 +16,8 @@ namespace rygio.Query.v1.RegionQuery.Dtos.Request
         public bool CanMemberPost { get; set; } = true;
         public string ConnectionId { get; set; }
         public string Reference { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         //public Point Location { get; set; }
         //public Geometry Border { get; set; }
         public double Radius { get; set; }

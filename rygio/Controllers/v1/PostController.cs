@@ -38,7 +38,7 @@ namespace rygio.Controllers.v1
             try
             {
                 int user = int.Parse(User.Identity.Name);
-                CreatePostCommand request = new() { PostDto = dto, User = user };
+                CreateCommand request = new() { PostDto = dto, User = user };
                 var result = await mediator.Send(request);
 
 

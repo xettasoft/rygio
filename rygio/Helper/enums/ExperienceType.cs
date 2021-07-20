@@ -2,6 +2,7 @@
 {
     public enum ExperienceType
     {
+        NotSet = 000,
         Guided = 300,
         Exploratory = 301,
         Single = 302,
