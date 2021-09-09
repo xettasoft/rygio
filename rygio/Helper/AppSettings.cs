@@ -2,6 +2,7 @@
 {
     public class AppSettings
     {
+        public string AppKey { get; set; }
         public string Secret { get; set; }
         public int MaxLoginFailedCount { get; set; }
         public int LoginFailedWaitingTime { get; set; }

@@ -39,6 +39,8 @@ namespace rygio.Command.v1
             public async Task<AuthResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
             {
 
+                if (request.authDto.AppKey != _appSettings.AppKey) throw new AppException("Invalid AppKey");
+
                 //var user = mapper.Map<User>(request.registerDto);
                 var expiry = DateTime.UtcNow.AddMinutes(_appSettings.AccessTokenExpiration);
                 var user = await userRepository.Authenticate(request.authDto.Username, request.authDto.Password);

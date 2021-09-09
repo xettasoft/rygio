@@ -89,14 +89,16 @@ namespace rygio.Controllers.v1
         /// <returns></returns>
         [HttpPost]
         [Route("transfer")]
-        public async Task<IActionResult> transfer()
+        public async Task<IActionResult> transfer([FromBody] TransferDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                int user = int.Parse(User.Identity.Name);
+                TransferCommand request = new TransferCommand { TransferDto = dto, User = user };
+                var result = await mediator.Send(request);
 
 
-                return Ok();
+                return Ok(new { message = result });
 
             }
             catch (Exception ex)
@@ -113,14 +115,14 @@ namespace rygio.Controllers.v1
         /// </remarks>
         /// <returns></returns>
         [HttpGet("id")]
-        public async Task<IActionResult> getSingle()
+        public async Task<IActionResult> getSingle([FromQuery] int collectible)
         {
             try
             {
-                //var result = await mediator.Send(request);
-
-
-                return Ok();
+                int user = int.Parse(User.Identity.Name);
+                SingleQuery request = new SingleQuery { Collectible = collectible, User = user };
+                var result = await mediator.Send(request);
+                return Ok(new { data = result});
 
             }
             catch (Exception ex)
@@ -154,7 +156,7 @@ namespace rygio.Controllers.v1
             }
         }
 
-        /// <summary>
+/*        /// <summary>
         /// get all collectible trails
         /// </summary>
         /// <remarks>
@@ -177,7 +179,7 @@ namespace rygio.Controllers.v1
 
                 return BadRequest(new { message = ex.Message });
             }
-        }
+        }*/
 
         /// <summary>
         /// edit Collectible template
@@ -212,14 +214,16 @@ namespace rygio.Controllers.v1
         /// <returns></returns>
         [HttpDelete]
         
-        public async Task<IActionResult> delete()
+        public async Task<IActionResult> delete([FromBody] DeleteDto dto)
         {
             try
             {
-                //var result = await mediator.Send(request);
+                int user = int.Parse(User.Identity.Name);
+                DeleteCommand request = new DeleteCommand { DeleteDto = dto, User = user };
+                var result = await mediator.Send(request);
 
 
-                return Ok();
+                return Ok(new { message = result });
 
             }
             catch (Exception ex)

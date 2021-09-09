@@ -20,7 +20,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.CollectibleController.transfer">
+        <member name="M:rygio.Controllers.v1.CollectibleController.transfer(rygio.Command.v1.CollectibleCommand.Dtos.TransferDto)">
             <summary>
             transfer a collectible
             </summary>
@@ -28,7 +28,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.CollectibleController.getSingle">
+        <member name="M:rygio.Controllers.v1.CollectibleController.getSingle(System.Int32)">
             <summary>
             get a single collectible
             </summary>
@@ -44,14 +44,6 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.CollectibleController.trails">
-            <summary>
-            get all collectible trails
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
         <member name="M:rygio.Controllers.v1.CollectibleController.edit">
             <summary>
             edit Collectible template
@@ -60,7 +52,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.CollectibleController.delete">
+        <member name="M:rygio.Controllers.v1.CollectibleController.delete(rygio.Command.v1.CollectibleCommand.Dtos.DeleteDto)">
             <summary>
             delete a collectible template
             </summary>

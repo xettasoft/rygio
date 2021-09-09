@@ -176,7 +176,7 @@ namespace rygio
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                List<SwaggerOptions> swaggerOptions = new List<SwaggerOptions>();
+/*                List<SwaggerOptions> swaggerOptions = new List<SwaggerOptions>();
                 Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
                 app.UseSwagger(options => {
                     swaggerOptions.ForEach(x => {
@@ -188,9 +188,22 @@ namespace rygio
                     swaggerOptions.ForEach(x => {
                         option.SwaggerEndpoint(x.UIEndpoint, x.Description);
                     });
-                });
+                });*/
             }
 
+            List<SwaggerOptions> swaggerOptions = new List<SwaggerOptions>();
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+            app.UseSwagger(options => {
+                swaggerOptions.ForEach(x => {
+                    options.RouteTemplate = x.JsonRoute;
+                });
+            });
+            app.UseSwaggerUI(option =>
+            {
+                swaggerOptions.ForEach(x => {
+                    option.SwaggerEndpoint(x.UIEndpoint, x.Description);
+                });
+            });
 
             app.UseCors("ClientPermission");
             app.UseHttpsRedirection();

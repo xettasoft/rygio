@@ -36,6 +36,7 @@ namespace rygio.Command.v1
 
             public async Task<AuthResponse> Handle(FacebookAuthCommand request, CancellationToken cancellationToken)
             {
+                if (request.facebookAuthDto.AppKey != _appSettings.AppKey) throw new AppException("Invalid AppKey");
                 var user = await userRepository.FacebookAuthentication(request.facebookAuthDto.AccessToken);
                 var expiry = DateTime.UtcNow.AddMinutes(_appSettings.AccessTokenExpiration);
                 var authRes = mapper.Map<AuthResponse>(user);

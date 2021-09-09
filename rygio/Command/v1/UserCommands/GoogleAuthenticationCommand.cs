@@ -37,7 +37,7 @@ namespace rygio.Command.v1
 
             public async Task<AuthResponse> Handle(GoogleAuthenticationCommand request, CancellationToken cancellationToken)
             {
-
+                if (request.googleAuthDto.AppKey != _appSettings.AppKey) throw new AppException("Invalid AppKey");
                 var user = await userRepository.GoogleAuthentication(request.googleAuthDto.AccessToken);
                 var expiry = DateTime.UtcNow.AddMinutes(_appSettings.AccessTokenExpiration);
                 var authRes = mapper.Map<AuthResponse>(user);
