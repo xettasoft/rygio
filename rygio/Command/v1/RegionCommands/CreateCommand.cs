@@ -43,7 +43,6 @@ namespace rygio.Command.v1.RegionCommands
                 await regionService.CommitAsync();
                 return "Region Created.";
 
-
             }
 
 

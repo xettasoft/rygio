@@ -27,7 +27,7 @@ namespace rygio.Controllers.v1
             this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        /// <summary>
+        /*/// <summary>
         /// Create a region
         /// </summary>
         /// <remarks>
@@ -253,6 +253,6 @@ namespace rygio.Controllers.v1
 
                 return BadRequest(new { message = ex.Message });
             }
-        }
+        }*/
     }
 }

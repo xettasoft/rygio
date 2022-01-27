@@ -16,11 +16,11 @@ namespace rygio.Controllers.v1
     [ApiExplorerSettings(GroupName = "v1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class ExperienceController : ControllerBase
+    public class HuntController : ControllerBase
     {
-        private readonly ILogger<ExperienceController> _logger;
+        private readonly ILogger<HuntController> _logger;
         private readonly IMediator mediator;
-        public ExperienceController(ILogger<ExperienceController> logger, IMediator mediator)
+        public HuntController(ILogger<HuntController> logger, IMediator mediator)
         {
             _logger = logger;
             this.mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));

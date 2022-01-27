@@ -60,7 +60,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.create(rygio.Command.v1.ExperienceCommands.Dtos.ExperienceDto)">
+        <member name="M:rygio.Controllers.v1.HuntController.create(rygio.Command.v1.ExperienceCommands.Dtos.ExperienceDto)">
             <summary>
             Create an Experience
             </summary>
@@ -68,7 +68,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.drop">
+        <member name="M:rygio.Controllers.v1.HuntController.drop">
             <summary>
             drop an Experience
             </summary>
@@ -76,7 +76,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.pick">
+        <member name="M:rygio.Controllers.v1.HuntController.pick">
             <summary>
             pick an Experience
             </summary>
@@ -84,7 +84,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.purchase">
+        <member name="M:rygio.Controllers.v1.HuntController.purchase">
             <summary>
             buy an Experience
             </summary>
@@ -92,7 +92,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.getSingle">
+        <member name="M:rygio.Controllers.v1.HuntController.getSingle">
             <summary>
             get a single Experience
             </summary>
@@ -100,7 +100,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.getAll">
+        <member name="M:rygio.Controllers.v1.HuntController.getAll">
             <summary>
             get all user Experiences
             </summary>
@@ -108,7 +108,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.member">
+        <member name="M:rygio.Controllers.v1.HuntController.member">
             <summary>
             add a member
             </summary>
@@ -116,7 +116,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.deleteMember">
+        <member name="M:rygio.Controllers.v1.HuntController.deleteMember">
             <summary>
             delete a member
             </summary>
@@ -124,7 +124,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:rygio.Controllers.v1.ExperienceController.delete">
+        <member name="M:rygio.Controllers.v1.HuntController.delete">
             <summary>
             delete an Experience
             </summary>
@@ -151,150 +151,6 @@
         <member name="M:rygio.Controllers.v1.InstanceController.store">
             <summary>
             get all collectibles in store
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.Create(rygio.Command.v1.PostCommands.Dtos.MakePostDto)">
-            <summary>
-            make a post (location based or regional)
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.delete">
-            <summary>
-            delete a post
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.comment">
-            <summary>
-            make a comment
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.reply">
-            <summary>
-            reply a comment
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.like">
-            <summary>
-            like a post,comment or reply
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.getSingle">
-            <summary>
-            get a single collectible
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.getAll">
-            <summary>
-            get all user collectibles
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.member">
-            <summary>
-            add a member
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.PostController.deleteMember">
-            <summary>
-            delete a member
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.create(rygio.Command.v1.RegionCommands.Dtos.Request.NewRegionDto)">
-            <summary>
-            Create a region
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.member">
-            <summary>
-            add a member
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.deleteMember">
-            <summary>
-            delete a member
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.edit">
-            <summary>
-            edit a region
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.getSingle">
-            <summary>
-            get a single Region
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.getAll(rygio.Query.v1.RegionQuery.Dtos.Request.NearestRegionDto)">
-            <summary>
-            get nearest Region
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.thumbsup">
-            <summary>
-            region thumbsup
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.thumbsdown">
-            <summary>
-            region thumbsdown
-            </summary>
-            <remarks>
-            </remarks>
-            <returns></returns>
-        </member>
-        <member name="M:rygio.Controllers.v1.RegionController.delete">
-            <summary>
-            delete a region
             </summary>
             <remarks>
             </remarks>

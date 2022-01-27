@@ -10,7 +10,7 @@ namespace rygio.Domain.AppData
         public string Name { get; set; } = "Region";
         [Column(TypeName = "nvarchar(500)")]
         public string Decription { get; set; }
-        [Column(TypeName = "nvarchar(128)")]
+        [Column(TypeName = "nvarchar(256)")]
         public string Photo { get; set; }
         public bool IsPrivate { get; set; } = false;
         public bool IsLocked { get; set; } = false;
